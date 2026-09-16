@@ -1,0 +1,151 @@
+/**
+ * Radius documentation theme.
+ *
+ * The product's mark is monochrome — a heavy R inside radiating arcs — so the
+ * palette is built from a cool ink and one warm accent rather than from a
+ * brand hue that does not exist. Both themes are defined explicitly.
+ */
+
+:root {
+  /* Brand ramp. VitePress uses brand-1 for links, brand-2/3 for hovers and
+     button fills, so brand-1 must stay legible as text on the page ground. */
+  --vp-c-brand-1: #9A6A00;
+  --vp-c-brand-2: #B37A0C;
+  --vp-c-brand-3: #F2B63C;
+  --vp-c-brand-soft: rgba(242, 182, 60, 0.16);
+
+  /* Cool, slightly blue-biased neutrals, picked rather than inherited. */
+  --vp-c-bg: #FBFCFC;
+  --vp-c-bg-alt: #F1F3F4;
+  --vp-c-bg-soft: #F1F3F4;
+  --vp-c-divider: #DCE1E3;
+  --vp-c-text-1: #14191C;
+  --vp-c-text-2: #4E585D;
+  --vp-c-text-3: #7C868B;
+
+  --vp-font-family-base: 'Source Serif 4', ui-serif, Georgia, serif;
+  --vp-font-family-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --vp-layout-max-width: 1500px;
+  --vp-sidebar-width: 290px;
+}
+
+.dark {
+  --vp-c-brand-1: #F2B63C;
+  --vp-c-brand-2: #F5C664;
+  --vp-c-brand-3: #B37A0C;
+  --vp-c-brand-soft: rgba(242, 182, 60, 0.18);
+
+  --vp-c-bg: #0D1012;
+  --vp-c-bg-alt: #131719;
+  --vp-c-bg-soft: #171C1F;
+  --vp-c-divider: #262E32;
+  --vp-c-text-1: #EDEFF0;
+  --vp-c-text-2: #9AA4A9;
+  --vp-c-text-3: #6E787D;
+}
+
+/* Headings carry the product's geometry; body stays a reading serif. */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.VPHero .name,
+.VPHero .text,
+.VPFeature .title,
+.VPSidebarItem .text,
+.VPNavBarTitle .title {
+  font-family: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.017em;
+}
+
+.vp-doc h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.vp-doc h2 {
+  font-weight: 700;
+  margin-top: 46px;
+  padding-top: 22px;
+}
+
+/* A little more air in running text than the default, since these pages are
+   read start-to-finish more often than a framework's API reference. */
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.68;
+}
+
+.vp-doc p {
+  margin: 16px 0;
+}
+
+/* Tables carry most of the reference material here, so they get real care. */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  font-size: 15px;
+  font-family: var(--vp-font-family-base);
+}
+
+.vp-doc th {
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-2);
+  background: transparent;
+}
+
+.vp-doc td code,
+.vp-doc th code {
+  font-size: 12.5px;
+}
+
+.vp-doc tr {
+  background: transparent;
+}
+.vp-doc tr:nth-child(2n) {
+  background: var(--vp-c-bg-soft);
+}
+
+/* Inline code reads as a token, not as a highlighted mistake. */
+.vp-doc :not(pre) > code {
+  font-size: 0.86em;
+  background: var(--vp-c-default-soft);
+  color: var(--vp-c-text-1);
+  border-radius: 3px;
+}
+
+/* Wrap the long .env keys and file paths these docs are full of. */
+.vp-doc td code {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Keyboard shortcuts appear throughout the builder pages. */
+.vp-doc kbd {
+  font-family: var(--vp-font-family-mono);
+  font-size: 11.5px;
+  padding: 2px 6px;
+  border: 1px solid var(--vp-c-divider);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-1);
+  white-space: nowrap;
+}
+
+/* The home page hero image is the logo, which has generous internal padding
+   of its own; stop the default theme adding more. */
+.VPHero .VPImage {
+  max-width: 200px;
+}
+
+@media (max-width: 640px) {
+  .vp-doc h2 {
+    margin-top: 34px;
+  }
+}
