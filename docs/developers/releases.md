@@ -170,5 +170,5 @@ These docs version alongside the product:
 
 1. Update the affected pages in this repository
 2. Bump `RADIUS_VERSION` in `docs/.vitepress/config.mts`
-3. Add any new screenshots — see the [contributing notes](https://github.com/InsertCart/radius-docs#readme)
+3. Add any new screenshots — see the [contributing notes](https://github.com/InsertCart/radius-doc#readme)
 4. Push to `main`; the docs deploy workflow publishes automatically

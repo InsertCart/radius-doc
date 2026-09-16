@@ -10,7 +10,7 @@ export default defineConfig({
     'Documentation for Radius — a modular, self-hosted CMS and eCommerce platform built on Laravel 12.',
   lang: 'en-GB',
 
-  // Set to the subdomain root. Keep '/' for docs.insertcart.com; change to
+  // Set to the subdomain root. Keep '/' for radiusdoc.insertcart.com; change to
   // '/radius/' only if you ever serve from a GitHub project subpath instead.
   base: '/',
 
@@ -38,7 +38,7 @@ export default defineConfig({
   ],
 
   sitemap: {
-    hostname: 'https://docs.insertcart.com',
+    hostname: 'https://radiusdoc.insertcart.com',
   },
 
   markdown: {
@@ -167,7 +167,7 @@ export default defineConfig({
     ],
 
     editLink: {
-      pattern: 'https://github.com/InsertCart/radius-docs/edit/main/docs/:path',
+      pattern: 'https://github.com/InsertCart/radius-doc/edit/main/docs/:path',
       text: 'Suggest a change to this page',
     },
 

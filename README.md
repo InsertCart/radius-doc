@@ -1,6 +1,6 @@
 # Radius documentation
 
-The source for **docs.insertcart.com** — documentation for
+The source for **radiusdoc.insertcart.com** — documentation for
 [Radius](https://github.com/InsertCart/radius), a modular self-hosted CMS and
 eCommerce platform.
 
@@ -36,7 +36,7 @@ docs/
 │           ├── Screenshot.vue  a screenshot slot with a placeholder
 │           └── ScreenList.vue  a table of the routes a page covers
 ├── public/
-│   ├── CNAME                   docs.insertcart.com
+│   ├── CNAME                   radiusdoc.insertcart.com
 │   └── images/                 screenshots, one folder per section
 ├── index.md                    home page
 ├── guide/                      install and first steps
@@ -162,8 +162,8 @@ pull request builds but does not publish, so a broken build is caught first.
 
 ### Pointing the subdomain at it
 
-1. `docs/public/CNAME` already contains `docs.insertcart.com`
-2. Add a DNS `CNAME` record: `docs` → `insertcart.github.io`
+1. `docs/public/CNAME` already contains `radiusdoc.insertcart.com` — it MUST match the domain in Settings → Pages exactly
+2. Add a DNS `CNAME` record: `radiusdoc` → `insertcart.github.io`, proxy **off** (grey cloud on Cloudflare)
 3. In the repository's **Settings → Pages**, set the source to **GitHub
    Actions**, then enter the custom domain and enable **Enforce HTTPS**
 
@@ -171,7 +171,7 @@ The certificate takes a few minutes to issue after the DNS record resolves.
 
 ::: note Serving from a project subpath instead
 If you ever drop the custom domain and serve from
-`insertcart.github.io/radius-docs/`, set `base: '/radius-docs/'` in
+`insertcart.github.io/radius-doc/`, set `base: '/radius-doc/'` in
 `docs/.vitepress/config.mts`. Leave it as `'/'` for the subdomain.
 :::
 
