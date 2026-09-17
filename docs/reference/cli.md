@@ -14,6 +14,7 @@ php artisan cms:demo               # install sample content
 php artisan cms:demo --remove      # delete that sample content
 php artisan cms:update             # install an available update
 php artisan cms:release            # build a release ZIP (maintainers)
+php artisan cms:theme-package      # build a checked, installable theme ZIP
 php artisan cms:marketplace-entry  # print a theme directory listing for a ZIP
 php artisan search:rebuild         # rebuild the site search index
 php artisan search:status          # show the search engine and index state
@@ -69,6 +70,20 @@ reliable route for a large release, and the recovery path if a browser update
 times out halfway. Takes the same backup first.
 
 See [Updates](/system/updates#updating-over-ssh-instead).
+
+### `cms:theme-package`
+
+```bash
+php artisan cms:theme-package storefront
+```
+
+Builds `storage/app/private/theme-packages/<slug>-<version>.zip` from
+`themes/<slug>`, runs the theme installer's own checks against it, and deletes
+the ZIP if they fail. It also checks the screenshot's size and format. Use
+`--output=` to write it somewhere else.
+
+The `default` theme cannot be packaged: it ships with every install and cannot
+be uploaded over.
 
 ### `cms:marketplace-entry`
 

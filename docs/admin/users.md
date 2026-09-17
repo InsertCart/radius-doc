@@ -100,6 +100,13 @@ controlled by **Settings → Advanced → Allow public registration**, and
 **Require email verification** on the same screen decides whether they must
 confirm their address first.
 
+With verification on, a new customer is signed in but held on a "Verify your
+email" screen until they click the link in the email. The screen has a
+**Resend verification email** button, and the link expires after an hour.
+Staff accounts are never held. Verification needs working email (see
+[Settings](../settings/index.md)). If sending fails, the account is still
+created and the error is logged.
+
 <Screenshot
   src="storefront/account-dashboard.png"
   screen="/account"

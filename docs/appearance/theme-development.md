@@ -49,6 +49,28 @@ Only `name` and `version` are required.
 | `regions` | Declares which parts the [visual builder](/builder/regions) may take over |
 | `supports` | Feature flags; `dark_mode` tells the logo component to use `auto` ink |
 
+### Screenshot
+
+Keep **one** preview image, in the theme's root folder beside `theme.json`, and
+name it in the `screenshot` key. It is published for you when the theme is
+installed or activated — do not put a second copy in `assets/`.
+
+| | |
+| --- | --- |
+| Size | **1200 × 675** pixels (16:9) |
+| Format | PNG, or JPG / WebP for a photographic design |
+| Weight | Under 500 KB |
+
+Every place a preview appears — the theme list, the theme directory, a theme's
+details page — shows it in a 16:9 frame, so any other shape is cropped. Capture
+the theme's homepage in a browser window 1200 pixels wide.
+
+Save the file in the format its name says. A JPEG renamed to `.png` still shows
+in most browsers, but `cms:theme-package` flags it.
+
+An SVG illustration is accepted, but a real screenshot of the finished theme is
+what makes someone choose it.
+
 ## The view tree
 
 | View | Renders |
@@ -123,7 +145,8 @@ A theme that omits them silently breaks those settings.
 ```php
 setting('site_name')            // any value from Settings
 setting('shop_currency', 'USD') // with a fallback
-theme_asset('css/theme.css')    // a URL under public/themes/<slug>/
+theme_asset('css/theme.css')    // a URL under public/themes/<slug>/, versioned
+safe_url($settings['link'])     // a link typed in the builder, or '' if unsafe
 theme_option('key')             // this theme's own stored options
 ```
 
@@ -221,6 +244,18 @@ Restyle the dropdown with `--radius-search-*` CSS properties, or override
 Put CSS and JS in `assets/`, reference with `theme_asset()`. On activation the
 folder is copied to `public/themes/<slug>/`.
 
+`theme_asset()` appends a version taken from the published file, so a changed
+stylesheet reaches returning visitors on its own:
+
+```blade
+<link rel="stylesheet" href="{{ theme_asset('css/theme.css') }}">
+{{-- renders .../themes/your-theme/css/theme.css?v=b11748a7f3 --}}
+```
+
+**Do not add your own `?v=`**, and do not rely on bumping `version` in
+`theme.json` to bust caches — that only works when somebody remembers to do it.
+For the rare file that must keep a bare URL, pass `versioned: false`.
+
 There is **no build step for themes**. If you want Tailwind or Sass, compile it
 before packaging and ship the output.
 
@@ -247,19 +282,186 @@ Read them with `theme_option('accent_color')`.
 This is how you make a theme configurable without the owner editing files —
 which matters because their edits do not survive a theme update.
 
-## Packaging
+## Builder sections and starters
 
-```bash
-cd themes/my-theme
-zip -r ../my-theme-1.0.0.zip . -x "*.DS_Store" -x "node_modules/*"
+A site owner can only rearrange what the builder can see. Without help, a
+region such as your header opens as an empty canvas, and rebuilding your design
+from generic widgets never looks quite the same. So hand the builder your own
+sections.
+
+### Declare the sections
+
+Each section is a Blade view in `views/sections/` plus an entry in `theme.json`.
+Its controls become the section's settings panel:
+
+```json
+"sections": {
+  "rail": {
+    "label": "Product rail",
+    "icon": "grid",
+    "controls": [
+      { "type": "text", "key": "title", "label": "Heading", "default": "Featured this week" },
+      { "type": "select", "key": "source", "label": "Products", "default": "featured",
+        "options": { "featured": "Featured first", "latest": "Newest" } },
+      { "type": "select", "key": "category", "label": "Category", "options": "@shop_categories" },
+      { "type": "number", "key": "count", "label": "How many", "default": 8, "min": 1, "max": 24 }
+    ]
+  }
+}
 ```
 
-Zip the **contents**, not the parent folder — the archive's root should contain
-`theme.json`, not `my-theme/theme.json`.
+| Key | Meaning |
+| --- | --- |
+| `label`, `icon` | The tile in the builder's **Your theme** group. Icons are from the builder's icon set |
+| `view` | Defaults to `sections.<key>` |
+| `areas` | Optional list of regions the section is offered in. Leave it out to offer it everywhere |
+| `controls` | `text`, `textarea`, `richtext`, `number`, `toggle`, `select`, `color`, `image`, `link` or `icon`. A select's `options` is an object, or `@shop_categories`, `@blog_categories` or `@menus` |
 
-Remember that `.php` files are dropped during extraction and Blade templates are
-scanned for raw PHP. Write Blade, not PHP. See
-[Theme security](/appearance/themes#theme-uploads-are-checked).
+The view receives `$settings` (defaults already applied) and `$editing`. A
+section fetches its own data, because the builder can put it anywhere:
+
+```blade
+{{-- views/sections/rail.blade.php --}}
+@php
+    $products = \App\Models\Product::published()->latest()->limit($settings['count'])->get();
+@endphp
+
+@include('theme::partials.rail', ['title' => $settings['title'], 'products' => $products])
+```
+
+Use the same views in your own templates with `theme_section()`, so the page a
+visitor sees before anything is built comes from the same markup:
+
+```blade
+@region('hero')
+    {!! theme_section('hero') !!}
+@endregion
+
+{!! theme_section('rail', ['title' => 'New in', 'source' => 'latest']) !!}
+```
+
+### Ship starters
+
+`starters.json`, next to `theme.json`, gives each region a starting layout. A
+region with a starter opens in the editor already filled with it, as a draft:
+
+```json
+{
+  "header": [
+    { "key": "storefront", "label": "Storefront header",
+      "sections": [ { "width": "edge", "widgets": [ { "section": "header" } ] } ] }
+  ],
+  "home": [
+    { "key": "storefront", "label": "Storefront homepage",
+      "sections": [
+        { "width": "edge", "widgets": [ { "section": "hero" } ] },
+        { "width": "edge", "widgets": [ { "section": "rail", "settings": { "count": 8 } } ] }
+      ] }
+  ]
+}
+```
+
+`"width": "edge"` removes the builder's side padding and gaps, for a section
+that draws its own full-width band and inner container. A widget is either
+`{ "section": "…" }` or an ordinary builder widget such as
+`{ "type": "heading", "settings": { "text": "Hello" } }`. A section can also
+hold several `columns`, each with a `width` and `widgets`.
+
+### Let the editor load your stylesheet
+
+A region is previewed on its own, outside your layout. Tell the builder which
+assets and body class your sections need:
+
+```json
+"builder": {
+  "styles": ["css/theme.css"],
+  "scripts": ["js/theme.js"],
+  "body_class": "sf"
+}
+```
+
+Paths are relative to your theme's `assets/` folder.
+
+::: tip Wrap the whole homepage
+Give the homepage a region of its own, such as `"home": "Homepage (whole page)"`,
+and wrap its template in `@region('home')`. Owners can then reorder or remove
+every block on it, not just the hero.
+:::
+
+## Packaging
+
+Build the ZIP with the packaging command rather than by hand:
+
+```bash
+php artisan cms:theme-package my-theme
+```
+
+It writes `storage/app/private/theme-packages/my-theme-1.0.0.zip`, then runs the
+**theme installer's own checks** against it — the same code every site runs on
+upload — and deletes the ZIP if any of them fail. A theme that packages is a
+theme that installs.
+
+```
+Packaged storefront 1.0.1: 50 file(s)
+
+  ok   passes the theme installer (50 file(s) accepted)
+  note views/partials/header.blade.php contains @php blocks.
+  ok   screenshot 1200x675
+
+Theme ZIP ready.
+```
+
+`note` lines are information, not errors — an admin sees them after installing.
+
+::: warning Why not just zip the folder?
+Hand-made ZIPs fail in ways that only show up on somebody else's server:
+
+- **Windows PowerShell's `Compress-Archive` stores backslashes** in paths. Older
+  releases of Radius read those as one long file name on Linux and refused the
+  theme with "No theme.json was found". Current releases accept them, but a
+  buyer may be on an older one.
+- Editor and OS clutter — `.DS_Store`, `Thumbs.db`, `node_modules` — ships too.
+- A template that trips the safety scan looks fine until a site refuses it.
+:::
+
+### What the installer refuses
+
+| Refused | Because |
+| --- | --- |
+| No `theme.json`, or no `name` / `version` in it | It cannot tell what it is installing |
+| No `views/` folder | A theme with no templates renders nothing |
+| The slug `default` | The bundled default theme is the fallback every theme builds on |
+| More than 2,000 files, or over 200 MB uncompressed | Protection against archive bombs |
+| A path escaping the theme folder (`../`) | Protection against overwriting the site |
+
+Files that are not an allowed type — anything but Blade templates and static
+assets such as CSS, JS, images, fonts and JSON — are **dropped**, not refused.
+Plain `.php` files are always dropped.
+
+### What the template scan looks for
+
+Every `.blade.php` file is read before the theme is installed. Any of these
+rejects the whole theme:
+
+- raw `<?php` or `<?=` tags
+- `eval`, `assert`, shell execution, or backticks inside `{{ }}` or `@php`
+- reading or writing files and URLs directly, or superglobals such as `$_GET`
+- `include` / `require` (Blade's `@include` is fine)
+- **calling a variable as a function** — `$format(...)`
+
+The last one catches honest code too. Storing a closure and calling it looks
+exactly like `$f = 'system'; $f(...)`, so write the call directly:
+
+```blade
+{{-- Refused --}}
+@php $safe = fn ($url) => ...; $link = $safe($settings['url']); @endphp
+
+{{-- Fine --}}
+@php $link = safe_url($settings['url']); @endphp
+```
+
+Blade comments are not scanned, so describing a template in prose never trips
+it.
 
 ## Keeping your changes
 
@@ -272,9 +474,10 @@ files.
 | Editing a bought theme | Check whether it supports a child theme or options |
 | Small CSS tweaks | [Settings → Appearance → Custom CSS](/settings/#appearance) |
 
-An update's path allowlist does not touch `themes/`, so your own theme folder is
-safe — but the bundled ones are part of the product. See
-[Updates](/system/updates#what-an-update-touches).
+Updates never touch a theme you installed or created yourself. The two bundled
+themes, `default` and `storefront`, are part of the product and **are** updated
+— files you have edited in them are skipped and reported, but copying the theme
+first is the durable fix. See [Updates](/system/updates#what-an-update-touches).
 
 ## Testing checklist
 
@@ -284,3 +487,5 @@ safe — but the bundled ones are part of the product. See
 - At phone width
 - With a long page title and a missing featured image
 - With `APP_DEBUG=false`, so a template error shows as a 500 rather than a trace
+- Packaged with `php artisan cms:theme-package`, then **installed from that ZIP**
+  on a clean test site — not just copied into `themes/`

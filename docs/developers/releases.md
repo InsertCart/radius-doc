@@ -59,6 +59,14 @@ git rm --cached storage/installed
 `public/build/` is missing, and ships the `.htaccess` files that keep uploads and
 paid downloads from being served directly.
 
+::: danger Every bundled theme must be listed in `config/updates.php`
+The updater only writes paths on its allowlist. A theme that ships in the ZIP
+but is missing from `paths.merge` installs perfectly and then **never updates
+again** — from the outside it looks like a browser caching problem that no amount
+of cache clearing fixes. `cms:release` refuses to build a release that would do
+that, and names the line to add to both `paths.merge` and `paths.track_edits`.
+:::
+
 ::: warning The ZIP must declare the version the manifest promises
 `config/cms.php` inside the archive has to match. If the two disagree, the
 update stops before touching anything on the buyer's site.
@@ -155,7 +163,9 @@ somewhere to keep a session before there is a database to keep one in.
    clean host**
 6. Confirm the setup wizard opens — it must not be pre-locked
 7. Confirm the site loads with CSS
-8. Test the in-panel updater from the previous version to this one
+8. Test the in-panel updater from the previous version to this one, then load
+   the site in a browser that visited it **before** the update and confirm the
+   new styles appear
 
 ::: warning Step 8 is the one people skip
 A release that installs cleanly from scratch can still fail as an **update**,

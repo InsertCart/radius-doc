@@ -57,7 +57,7 @@ This is the section worth reading before your first update.
 ```
 app/  vendor/  resources/  routes/
 database/migrations/  public/build/
-themes/default  (the bundled theme only)
+themes/default  themes/storefront  (the bundled themes)
 root files: artisan, composer.json
 ```
 
@@ -72,10 +72,30 @@ cannot reach your `.env`, your uploads, or a theme you bought.
 storage/          (uploads, paid downloads, logs, backups)
 public/storage
 public/themes/
-any theme other than the bundled one
+any theme you installed yourself
 ```
 
 Your database is **migrated, never reset**.
+
+::: tip `public/themes/` is regenerated, not edited
+The updater never writes to `public/themes/` directly, but each update re-copies
+every theme's `assets/` folder into it. Change a theme's files in `themes/<slug>/`
+— anything edited in `public/themes/` is replaced on the next update.
+:::
+
+### Visitors get the new styles without clearing their cache
+
+Two kinds of file change when an update restyles the site, and neither needs
+anyone to clear a browser cache:
+
+- **The CMS's own CSS and JavaScript** is built with a fingerprint in the file
+  name — `app-C3EW5EV7.css`. A new release is a new name, so browsers fetch it.
+- **Theme assets** keep a fixed path, so `theme_asset()` appends a version taken
+  from the file itself: `theme.css?v=b11748a7f3`. When an update changes the
+  file, the address changes with it.
+
+Server-side caches — compiled views, config, routes and cached pages — are
+cleared as the last step of every update.
 
 ### Your edits to shipped files are preserved
 

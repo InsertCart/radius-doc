@@ -236,7 +236,14 @@ Transactional SMS and OTP login. **Needs the SMS module.**
 | Twilio account SID | text | — | |
 | Twilio auth token | secret | — | |
 | Twilio from number | text | — | |
-| Allow OTP login | boolean | off | Sign in with a code instead of a password |
+| Allow OTP login | boolean | off | Customers sign in with a texted code instead of a password |
+
+With **Allow OTP login** on and SMS working, the sign-in page gets a **Sign in with a
+code sent to your phone** button. It works only for customer accounts, never
+staff. The number typed in must match the phone on exactly one active account.
+The code always goes to the number saved on the account. It expires after 10
+minutes and stops working after 5 wrong tries. An account with two-factor
+authentication still has to pass that step as well.
 
 ::: warning Indian numbers need DLT registration
 MSG91 messages to Indian numbers require a DLT-registered template ID. Without
@@ -298,6 +305,10 @@ or below its own path.
 Empty fields are skipped rather than rendered as dead icons. These feed both the
 theme footer and the builder's **Social icons** widget.
 
+Enter the WhatsApp number in international format, for example
+`+91 98765 43210`. It becomes a click-to-chat `wa.me` link. You can also paste
+a full `https://wa.me/...` link.
+
 ## Shop
 
 **Needs the shop module.** Set currency before adding products.
@@ -323,7 +334,7 @@ theme footer and the builder's **Social icons** widget.
 | Track stock levels | boolean | on | |
 | Low stock threshold | number | `5` | Flags products on the list screen |
 | Order number prefix | text | `ORD-` | |
-| Terms page slug | text | `terms` | The page linked at checkout |
+| Terms page slug | text | `terms` | The page linked from the terms checkbox at checkout and registration. Shown as plain text if no published page has this slug |
 | Downloads per purchase | number | `5` | `0` for unlimited |
 | Download access expires after (days) | number | `0` | From the paid date. `0` = forever |
 
@@ -345,7 +356,7 @@ Caching, reCAPTCHA, registration and two security switches.
 | Field | Type | Default | Notes |
 | --- | --- | --- | --- |
 | Cache rendered pages | boolean | off | Caches public HTML for signed-out visitors |
-| Cache lifetime (seconds) | number | `600` | |
+| Cache lifetime (seconds) | number | `600` | Minimum 10 |
 | Enable reCAPTCHA v3 | boolean | off | Applies to contact, newsletter and registration |
 | reCAPTCHA site key | text | — | |
 | reCAPTCHA secret key | secret | — | |
@@ -353,6 +364,29 @@ Caching, reCAPTCHA, registration and two security switches.
 | Require email verification | boolean | off | Needs working email |
 | Force HTTPS | boolean | off | |
 | Require 2FA for admin accounts | boolean | off | Every admin must enrol |
+
+### How page caching works
+
+Only the public content pages are cached: the homepage, pages, blog and shop
+listings, posts, products and the contact page. A page is never cached for a
+signed-in visitor, a visitor with items in their cart, or right after a form
+submission. It is also skipped when the address has query parameters other
+than `?page=`. Each visitor still gets their own security token, so forms on
+a cached page submit normally.
+
+Saving any content or setting in the admin panel clears every cached page.
+Orders, carts, sign-ups and form submissions do not. Pages served from the
+cache do not add to post and product view counts. To check whether a page
+came from the cache, look for the `X-Page-Cache: HIT` response header.
+
+### reCAPTCHA
+
+reCAPTCHA stays off until the switch is on **and** both keys are filled in.
+Register a **v3** key for your domain at
+[google.com/recaptcha/admin](https://www.google.com/recaptcha/admin). The
+script loads only on pages that have a protected form, and it works with any
+theme. Submissions scoring below 0.5 are refused. If your server cannot reach
+Google, the check is skipped and a warning is logged, so forms keep working.
 
 ::: warning Leave page caching off while building
 A cached page does not reflect your last edit. If a change is not showing on the

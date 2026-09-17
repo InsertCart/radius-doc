@@ -109,6 +109,16 @@ Rather than starting from an empty canvas, each region offers a ready-made
 starting point — a conventional header with a logo, menu and cart icon, for
 instance — which you then edit.
 
+When the active theme ships its own starter for a region, the region opens
+already filled with it: the theme's header, hero or homepage, made of **theme
+section** widgets that look exactly like the live site. Move them, change their
+settings, delete them or add other widgets around them. The starter is saved as
+a draft only. Visitors keep seeing the theme's version until you publish.
+
+A theme that ships starters usually offers a **Homepage (whole page)** region
+too. Build that one to rearrange every block on the homepage, not just the
+hero.
+
 <Screenshot
   src="builder/region-starters.png"
   screen="/admin/builder/region/header"

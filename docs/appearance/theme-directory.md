@@ -193,7 +193,7 @@ A layout that works:
 
 ```
 /marketplace/themes.json
-/marketplace/<slug>/screenshot.png
+/marketplace/<slug>/screenshot.png      (the same file named in theme.json)
 /marketplace/<slug>/<slug>-<version>.zip
 ```
 
@@ -202,6 +202,14 @@ not hit a missing file.
 
 ### Listing a theme
 
+Package the theme first, so the ZIP you list has already passed the installer:
+
+```bash
+php artisan cms:theme-package aurora
+```
+
+Then print its listing:
+
 ```bash
 php artisan cms:marketplace-entry path/to/aurora-1.2.0.zip \
     --url=https://www.insertcart.com/marketplace/aurora
@@ -209,7 +217,9 @@ php artisan cms:marketplace-entry path/to/aurora-1.2.0.zip \
 
 prints the entry for that ZIP — checksum, size, slug and version all read from
 the archive itself — ready to paste into `items`. It warns about files the
-installer would drop. Fill in `tags`, `preview_url` and a realistic `requires`.
+installer would drop. The `screenshot` address uses the file name from the
+theme's `theme.json`, so upload that same image beside the ZIP. Fill in `tags`,
+`preview_url` and a realistic `requires`.
 
 ::: tip Install it before you list it
 Upload the ZIP through **Appearance → Themes** on a test site first. Every site
