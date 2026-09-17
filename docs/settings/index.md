@@ -1,11 +1,12 @@
 # All settings screens
 
-Nine screens, reached from **Settings** in the sidebar. This page is the full
+Ten screens, reached from **Settings** in the sidebar. This page is the full
 field reference — one section per screen.
 
 <ScreenList :screens="[
   { route: '/admin/settings/general', name: 'General', role: 'Administrator' },
   { route: '/admin/settings/appearance', name: 'Appearance', role: 'Administrator' },
+  { route: '/admin/settings/search', name: 'Search', role: 'Administrator' },
   { route: '/admin/settings/seo', name: 'SEO', role: 'Administrator' },
   { route: '/admin/settings/mail', name: 'Email', role: 'Administrator' },
   { route: '/admin/settings/sms', name: 'SMS', role: 'Administrator' },
@@ -88,6 +89,28 @@ forum.
 Custom CSS and header scripts arrive via `@stack('head')`, and Custom JS via
 `@stack('scripts')`. A theme omitting those directives silently ignores all
 three fields — see [Building a theme](/appearance/theme-development#a-minimal-layout).
+
+## Search
+
+How visitors search the site: which engine answers, whether results appear
+while typing, and what is searchable. [Site search](/admin/search) explains the
+choices in full.
+
+| Field | Type | Default | Notes |
+| --- | --- | --- | --- |
+| Search engine | select | `Database` | `Database` or `Index`. Choosing Index builds the index on save |
+| Show results while typing | boolean | on | Live dropdown under search boxes |
+| Start after this many characters | number | `2` | 1–10 |
+| Results per group while typing | number | `5` | 1–20 |
+| Search blog posts | boolean | on | No effect while the Blog module is off |
+| Search products | boolean | on | No effect while the Shop module is off |
+| Search pages | boolean | on | |
+| Site-wide results page at /search | boolean | on | Turn off if you have your own page at `/search` |
+| Live searches allowed per visitor per minute | number | `60` | Rate limit on live results |
+| Remember live results for (seconds) | number | `60` | Database engine only. `0` turns it off |
+
+Below the form, the **Search status** card shows what the index holds for each
+kind of content, with a **Rebuild index now** button.
 
 ## SEO
 

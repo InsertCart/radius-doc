@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap');
+
 /**
  * Radius documentation theme.
  *
@@ -23,7 +25,7 @@
   --vp-c-text-2: #4E585D;
   --vp-c-text-3: #7C868B;
 
-  --vp-font-family-base: 'Source Serif 4', ui-serif, Georgia, serif;
+  --vp-font-family-base: 'Roboto', 'Segoe UI', Arial, sans-serif;
   --vp-font-family-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
 
   --vp-layout-max-width: 1500px;
@@ -45,7 +47,7 @@
   --vp-c-text-3: #6E787D;
 }
 
-/* Headings carry the product's geometry; body stays a reading serif. */
+/* Headings and body use Roboto for the documentation's clean, readable look. */
 .vp-doc h1,
 .vp-doc h2,
 .vp-doc h3,
@@ -55,7 +57,7 @@
 .VPFeature .title,
 .VPSidebarItem .text,
 .VPNavBarTitle .title {
-  font-family: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
   letter-spacing: -0.017em;
 }
 

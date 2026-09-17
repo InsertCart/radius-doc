@@ -81,6 +81,48 @@ in one place.
 Needs the shop module. Disabled, the widget disappears from the palette and
 renders as nothing.
 
+## Product page
+
+These widgets build the **product page template**. Open it from **Builder →
+Site pages → Product page**, or with **Open the builder** on any product, which
+previews the template with that product. The widgets hold no product of their
+own: each one shows whichever product the visitor is viewing, so one design
+serves the whole shop. They only appear in the palette while you edit that
+template.
+
+The first time you open it, the template starts as a copy of your theme's
+product page, built from these widgets. It stays a draft, and shoppers keep
+seeing the theme's page until you press **Publish**. To design one product's
+description instead, use the **description builder** link on the product's
+edit screen.
+
+| Widget | What it shows |
+| --- | --- |
+| **Breadcrumbs** | Home / Shop / category / product |
+| **Product images** | The featured image and gallery, with thumbnails on the left, below, or hidden |
+| **Product title** | The product name, with an optional category link |
+| **Star rating** | Average rating and review count, hidden until the first review if you prefer |
+| **Price** | Price, crossed-out price and saving badge on sale items, and the tax note |
+| **Short description** | The product's short description |
+| **Add to cart** | Option picker, quantity, **Add to cart** and **Buy now**, all with editable labels |
+| **Stock status** | In stock, low stock (`Only :count left`), out of stock and digital wording |
+| **Trust badges** | A row of icons with labels, such as *Secure payments* or *Tracked delivery* |
+| **Description** | The full description, collapsible or always shown |
+| **Product details** | SKU, categories, weight, dimensions and delivery, each row switchable |
+| **Reviews** | Approved reviews, plus the form for writing one |
+| **Related products** | Other products from the same categories |
+
+::: warning Keep the Add to cart widget
+Without it nobody can buy. The editor shows a warning while the template is
+missing it.
+:::
+
+**Buy now** adds the product to the cart and goes straight to checkout. It
+works without JavaScript.
+
+While you design, the preview uses the product you opened the builder from.
+Opened from Site pages, it uses your newest published product.
+
 ## Site parts
 
 These read from the site rather than holding their own content, which is what
@@ -91,7 +133,7 @@ makes them the building blocks of a header or footer designed in the builder:
 | **Site logo** | Your logo from Settings → General, light or dark variant |
 | **Navigation menu** | Any menu, by location — see [Menus](/admin/menus) |
 | **Cart icon** | Cart link with a live item count — shop module |
-| **Search** | The site search field |
+| **Search** | A search box for the whole site, posts or products, with live results. See [Site search](/admin/search#the-search-widget) |
 | **Social icons** | Links from Settings → Social |
 | **Page title** | The current page's title — for use in theme regions |
 

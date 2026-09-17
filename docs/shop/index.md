@@ -47,7 +47,8 @@ against the threshold from Settings → Shop.
 | **Description** | Rich text, or build it with the [visual builder](/builder/) |
 | **Short description** | Shown near the Add to cart button and in listings |
 | **Categories** | Shared with the blog — see [Categories](/admin/posts#categories) |
-| **Images** | The first is the main image; the rest form a gallery |
+| **Featured image** | The main image on the product page and in product lists |
+| **Image gallery** | Extra images shown after the featured image. Add them from the library or upload several at once, and use the arrows to reorder |
 | **Status** | Draft, published, or scheduled |
 
 ### Pricing

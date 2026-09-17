@@ -15,6 +15,7 @@ app/
 │   ├── Sms/                SMS drivers and the one-time-code flow
 │   ├── Firebase/           FCM push and client config
 │   ├── Seo/                meta, schema.org and sitemap generation
+│   ├── Search/             site search: manager, database and index engines
 │   ├── Shop/               cart and order services
 │   ├── Builder/            the visual editor's engine
 │   │   └── Blocks/         one class per widget
@@ -37,7 +38,8 @@ config/
 ├── settings.php            every admin setting, declared once
 ├── payments.php            gateway definitions and endpoints
 ├── updates.php             the updater's path allowlist and backup policy
-└── builder.php             registered widgets, breakpoints, design tokens
+├── builder.php             registered widgets, breakpoints, design tokens
+└── search.php              searchable content types and the index location
 
 routes/
 ├── web.php                 public routes, wrapped in module checks

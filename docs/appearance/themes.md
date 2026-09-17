@@ -30,7 +30,11 @@ Radius ships with two themes:
 
 ## Installing a theme
 
-Upload a `.zip` from this screen.
+The quickest way is **Appearance → Browse themes**, which installs free themes
+from the [theme directory](/appearance/theme-directory) in one click and keeps
+them updated.
+
+To install a theme from anywhere else, upload its `.zip` from this screen.
 
 <Screenshot
   src="appearance/theme-upload.png"
@@ -131,5 +135,6 @@ Custom CSS survives theme updates. Editing a theme's own files does not — see
 
 ## Next
 
+- [Theme directory](/appearance/theme-directory) — browse, install and update free themes
 - [Building a theme](/appearance/theme-development)
 - [Branding](/appearance/branding) — logos, favicons, and white-labelling

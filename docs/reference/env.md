@@ -61,6 +61,7 @@ holding it could forge session cookies for all of them.
 | `CMS_MEDIA_DISK` | `public` | Where uploads go |
 | `CMS_DOWNLOADS_DISK` | `private` | Where paid files go — **keep it private** |
 | `CMS_DOWNLOADS_MAX_KB` | `262144` | 256 MB default limit for sold files |
+| `SEARCH_INDEX_PATH` | `storage/app/search-index` | Where [index search](/admin/search) keeps its files. Must be writable |
 | `CMS_UPDATE_URL` | GitHub releases endpoint | Unset to disable update checks |
 | `CMS_UPDATE_CHECK_HOURS` | `24` | How often to check |
 | `CMS_UPDATE_REQUIRE_CHECKSUM` | `true` | **Leave this alone** |
@@ -75,6 +76,21 @@ rewrite. They exist for testing a local manifest, not for production.
 
 After changing `CMS_ADMIN_PREFIX`, clear the route cache or the old path keeps
 working and the new one 404s.
+
+### Theme directory
+
+| Variable | Default | Notes |
+| --- | --- | --- |
+| `CMS_MARKETPLACE_ENABLED` | `true` | `false` removes **Browse themes** and every request it makes |
+| `CMS_MARKETPLACE_URL` | `https://www.insertcart.com/marketplace/themes.json` | Point a fork at its own catalogue |
+| `CMS_MARKETPLACE_CACHE_HOURS` | `12` | How long the catalogue is remembered |
+| `CMS_MARKETPLACE_REQUIRE_CHECKSUM` | `true` | **Leave this alone** |
+| `CMS_MARKETPLACE_REQUIRE_HTTPS` | `true` | **Leave this alone** |
+| `CMS_MARKETPLACE_REMOTE_IMAGES` | `true` | `false` stops screenshots loading from the directory's server |
+
+The two `REQUIRE_` switches matter for the same reason as the update ones: an
+installed theme is code on your server. See
+[Theme directory](/appearance/theme-directory).
 
 ## Sessions, cache and queue
 

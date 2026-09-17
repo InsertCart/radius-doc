@@ -48,6 +48,21 @@ Then wrap the theme's own markup in the matching directive:
 So the directive is a **fallback**, not a placeholder. The theme works
 standalone, and the builder is an optional override.
 
+### Passing the page's record to a region
+
+Some regions show a record, not the site as a whole. The product page template
+is one of them. Pass the record as a second argument, and the layout's widgets
+can read it:
+
+```blade
+@region('product', ['model' => $product])
+    {{-- The theme's own product page --}}
+@endregion
+```
+
+Wrap your theme's whole `shop/show.blade.php` content like this. The Product
+page widgets then show the product being viewed.
+
 ::: tip A theme with no @region markers is completely unaffected
 The builder is then limited to page content, which still works. Adding region
 support to an existing theme is opt-in, and adding one region does not commit

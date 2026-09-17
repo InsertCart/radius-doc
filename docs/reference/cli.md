@@ -14,6 +14,9 @@ php artisan cms:demo               # install sample content
 php artisan cms:demo --remove      # delete that sample content
 php artisan cms:update             # install an available update
 php artisan cms:release            # build a release ZIP (maintainers)
+php artisan cms:marketplace-entry  # print a theme directory listing for a ZIP
+php artisan search:rebuild         # rebuild the site search index
+php artisan search:status          # show the search engine and index state
 ```
 
 ### `cms:admin`
@@ -66,6 +69,42 @@ reliable route for a large release, and the recovery path if a browser update
 times out halfway. Takes the same backup first.
 
 See [Updates](/system/updates#updating-over-ssh-instead).
+
+### `cms:marketplace-entry`
+
+For whoever runs a [theme directory](/appearance/theme-directory#listing-a-theme).
+Prints the catalogue entry for a theme ZIP — checksum, size, slug and version
+read from the archive itself — ready to paste into the catalogue file.
+
+```bash
+php artisan cms:marketplace-entry path/to/aurora-1.2.0.zip \
+    --url=https://www.insertcart.com/marketplace/aurora
+```
+
+`--url` is the folder the ZIP and its `screenshot.png` will be served from. It
+warns about files the theme installer would drop, and refuses a `theme.json`
+whose version is written as a number.
+
+### `search:rebuild`
+
+Rebuilds the [search index](/admin/search) from the database. The same as
+**Rebuild index now** under Settings → Search, without the web server's time
+limit, which makes it the way to build the index on a very large site.
+
+```bash
+php artisan search:rebuild              # every searchable type
+php artisan search:rebuild product      # just one
+php artisan search:rebuild --engine=index   # build before switching the setting
+```
+
+With the database engine selected and no `--engine`, it does nothing: database
+search has no index.
+
+### `search:status`
+
+Prints the engine in use, whether live results are on, and for each content
+type whether the index is built, how many items it holds, its size and when it
+was built.
 
 ## Laravel commands you will actually use
 
@@ -134,6 +173,9 @@ One cron entry covers scheduled posts and the daily update check:
 ```
 * * * * * cd /path/to/your/site && php artisan schedule:run >> /dev/null 2>&1
 ```
+
+It also rebuilds the search index nightly at 03:30 when index search is
+selected, which refreshes prices of products whose sale started or ended.
 
 Radius works without it — you simply publish scheduled posts by hand and press
 **Check for updates** yourself.

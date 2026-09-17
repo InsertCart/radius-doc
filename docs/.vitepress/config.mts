@@ -94,6 +94,7 @@ export default defineConfig({
           { text: 'Pages', link: '/admin/pages' },
           { text: 'Posts, categories & comments', link: '/admin/posts' },
           { text: 'Menus', link: '/admin/menus' },
+          { text: 'Site search', link: '/admin/search' },
           { text: 'Media library', link: '/admin/media' },
           { text: 'Users & roles', link: '/admin/users' },
           { text: 'Contact forms & newsletter', link: '/admin/marketing' },
@@ -124,6 +125,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Themes', link: '/appearance/themes' },
+          { text: 'Theme directory', link: '/appearance/theme-directory' },
           { text: 'Building a theme', link: '/appearance/theme-development' },
           { text: 'Branding', link: '/appearance/branding' },
         ],
@@ -157,6 +159,7 @@ export default defineConfig({
         items: [
           { text: 'Project layout', link: '/developers/project-layout' },
           { text: 'Local development', link: '/developers/local-setup' },
+          { text: 'Search internals', link: '/developers/search' },
           { text: 'Cutting a release', link: '/developers/releases' },
         ],
       },

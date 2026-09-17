@@ -199,6 +199,23 @@ One call emits the title, description, canonical, Open Graph, Twitter card and
 schema.org graph. Do not hand-write these tags — the [SEO module](/settings/#seo)
 already resolves per-page overrides against site defaults.
 
+### Search
+
+Site search, including the live results dropdown, is provided by the CMS. To
+give a search form live results, name what it searches and add
+`@searchScripts` after it:
+
+```blade
+<form method="GET" action="{{ route('shop.index') }}" role="search" data-radius-search="product">
+    <input type="search" name="q" value="{{ request('q') }}" autocomplete="off">
+</form>
+@searchScripts
+```
+
+Restyle the dropdown with `--radius-search-*` CSS properties, or override
+`views/search/index.blade.php`, `form.blade.php` or `script.blade.php`. See
+[Search internals](/developers/search#theming-search) for every option.
+
 ## Assets
 
 Put CSS and JS in `assets/`, reference with `theme_asset()`. On activation the
