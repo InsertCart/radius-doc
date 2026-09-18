@@ -106,3 +106,9 @@ thumbnails.
 
 Deleting a file that content still references leaves a broken image in that
 content. Nothing warns you, so check before deleting something old.
+
+## Serving from a CDN or bucket
+
+The library can be served from a CDN, an S3-compatible bucket or another server
+over FTP, with a copy kept here or not. See [Media storage & CDN](/system/media-storage).
+Deleting a file removes it from the provider as well.

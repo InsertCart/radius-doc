@@ -10,6 +10,7 @@ out, which makes it the reliable route for a slow operation.
 php artisan cms:admin              # create or promote an admin account
 php artisan cms:sync               # register new modules, gateways and settings
 php artisan cms:sync --themes      # re-scan the themes folder
+php artisan cms:cdn-sync           # move the media library to the storage provider
 php artisan cms:demo               # install sample content
 php artisan cms:demo --remove      # delete that sample content
 php artisan cms:update             # install an available update
@@ -31,13 +32,26 @@ existing email promotes that account rather than failing.
 ### `cms:sync`
 
 Registers things the database has not learned about yet: new modules, new
-payment gateways, new settings keys. It never touches anything already
+payment gateways, new media storage providers, new settings keys. It never touches anything already
 configured.
 
 Run it after **replacing files by hand**. The in-panel updater runs it for you.
 
 `--themes` re-scans `themes/` — use it after uploading a theme over FTP rather
 than through the admin panel.
+
+### `cms:cdn-sync`
+
+Uploads every media file still on this server to the active storage provider.
+This is the command-line version of the batch buttons on
+[Media storage](/system/media-storage), for libraries too big to click through.
+
+- `--pull` brings files that exist only on the provider back to this server
+- `--limit=N` stops after N files
+- `--force` skips the confirmation asked before local copies are deleted
+  (asked only when the provider is set not to keep them)
+
+It exits non-zero if any file failed, and running it again retries those files.
 
 ### `cms:demo`
 
@@ -68,6 +82,17 @@ It creates published content on the public site immediately.
 Installs an available update with no request timeout to run into — the most
 reliable route for a large release, and the recovery path if a browser update
 times out halfway. Takes the same backup first.
+
+```bash
+php artisan cms:update            # check, confirm, install
+php artisan cms:update --check    # only report what is available
+php artisan cms:update --finish   # migrate and clear caches after copying files in by hand
+```
+
+`--finish` is the command for a release unzipped over the site with FTP: it
+runs the migrations, registers new modules, gateways and settings, adds new
+`.env` keys and clears the caches. It needs no update server, and a site that
+is already up to date just says so.
 
 See [Updates](/system/updates#updating-over-ssh-instead).
 

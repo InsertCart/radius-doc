@@ -16,12 +16,15 @@ secrets — sits one level above it.
 
 If your host does not let you move the document root, extract the whole project
 inside your web root instead. The included root `.htaccess` maps every request
-into `public/`, which means both of these reach the same site:
+into `public/`, so your site answers on:
 
 ```
 https://example.com/
-https://example.com/public/
 ```
+
+`https://example.com/public/...` redirects to that address with a permanent
+301. Two addresses for one page is a duplicate-content problem — search engines
+split a page's ranking between them — so there is deliberately only ever one.
 
 ::: danger Never serve the project folder without its .htaccess
 That file is the only thing keeping `.env`, the source code and the uploads

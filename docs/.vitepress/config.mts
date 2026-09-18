@@ -140,6 +140,7 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Modules', link: '/system/modules' },
+          { text: 'Media storage & CDN', link: '/system/media-storage' },
           { text: 'System health', link: '/system/health' },
           { text: 'Updates & backups', link: '/system/updates' },
           { text: 'Security', link: '/system/security' },

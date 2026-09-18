@@ -35,6 +35,13 @@ The editor is the same one [Pages](/admin/pages) use, with three additions:
   tall
   alt="The post editor with the content area and the sidebar panels for status, categories, tags and featured image" />
 
+### Viewing the post
+
+Once a post is saved and live, a **View** button appears in the top bar, left of
+**View site**, and opens it on the front end in a new tab. Before that the
+button is greyed out and says why — *Still in draft*, *Scheduled* for a post
+waiting on its publish date, or *Archived*.
+
 ### Scheduling
 
 Set **Published at** to a future date and the post stays invisible until then.

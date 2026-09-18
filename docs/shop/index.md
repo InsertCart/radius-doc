@@ -51,6 +51,12 @@ against the threshold from Settings → Shop.
 | **Image gallery** | Extra images shown after the featured image. Add them from the library or upload several at once, and use the arrows to reorder |
 | **Status** | Draft, published, or scheduled |
 
+### Viewing the product
+
+Once a product is saved and published, a **View** button appears in the top bar,
+left of **View site**, and opens its shop page in a new tab. A draft or archived
+product shows the button greyed out instead, since it has no public page yet.
+
 ### Pricing
 
 | Field | Notes |

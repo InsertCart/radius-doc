@@ -25,7 +25,7 @@ features:
     details: Upload, create an empty database, open your site. A four-step wizard checks your server, writes the config, migrates and creates your admin account.
     link: /guide/installation
     linkText: Installation guide
-  - title: Twelve modules, eight optional
+  - title: Thirteen modules, nine optional
     details: A switched-off module registers no routes and runs no queries, so a blog-only site carries none of the shop's weight.
     link: /system/modules
     linkText: Managing modules

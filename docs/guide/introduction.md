@@ -18,7 +18,7 @@ no revenue share, and no account to keep paying for.
 | **Marketing** | SEO meta and sitemaps, contact forms, newsletter capture, transactional SMS, web push |
 | **Administration** | Roles, two-factor authentication, an activity log, a health checklist, self-installing updates |
 
-Everything above the administration row is a **module**, and eight of the twelve
+Everything above the administration row is a **module**, and nine of the thirteen
 can be switched off. See [Modules](/system/modules).
 
 ## The shape of the thing

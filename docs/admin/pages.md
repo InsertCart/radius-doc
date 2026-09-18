@@ -41,6 +41,13 @@ filter separates published from drafts and scheduled pages.
 | **Parent** | Nests the page, producing `/parent/child` URLs |
 | **Order** | Sorts pages within the same parent |
 
+### Viewing the page
+
+Once a page is saved and published, a **View** button appears in the top bar,
+left of **View site**, and opens it on the front end in a new tab. While the
+page is still a draft the button is greyed out and reads *Still in draft* —
+there is no public address to open yet.
+
 ### The SEO panel
 
 Every page carries its own meta title, description and social image, plus a

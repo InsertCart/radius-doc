@@ -186,11 +186,41 @@ before it is trusted:
 
 If any check fails, the update stops **before touching anything**.
 
+## Installing a release by hand
+
+On hosting with no SSH, some owners unzip a release over the site with FTP or
+the file manager. That copies the files but runs **no migrations**, so the code
+is newer than the database — and pages fail as soon as one reads a column that
+does not exist yet.
+
+Radius notices. Every admin page checks whether the database is behind the
+files, and shows a banner with a **Finish the update** button:
+
+- It takes a database backup first
+- Then it runs the migrations, registers new modules, gateways and settings,
+  adds any new `.env` keys and clears every cache
+- It is safe to press again; a site already up to date just says so
+
+An editor sees the banner but no button, because updating is administrator-only.
+
+Over SSH, the same work is one command:
+
+```bash
+php artisan cms:update --finish
+```
+
+::: tip Unzipping over the site skips the safety checks
+The in-panel updater verifies the download, refuses a release your server
+cannot run, skips shipped files you edited, and can roll the whole thing back.
+A hand-copied release has none of that. Use it only when the panel cannot
+reach the update server.
+:::
+
 ## After updating
 
 1. Check **System → System** for new warnings
-2. Run `php artisan cms:sync` if you replaced files by hand (the in-panel
-   updater does this for you) — it registers new modules, gateways and settings
+2. Finish the update if you copied the files in by hand — the banner above, or
+   `php artisan cms:update --finish`. The in-panel updater does this for you
 3. Clear the caches
 4. Load the public site signed out
 5. If you run a shop, open a recent order and place a test order
@@ -200,6 +230,7 @@ If any check fails, the update stops **before touching anything**.
 | Symptom | Do this |
 | --- | --- |
 | Timed out mid-update | Run `php artisan cms:update` over SSH |
+| Banner says the update is not finished | Press **Finish the update**, or run `php artisan cms:update --finish` |
 | Site returns 500 | Read [System → Logs](/system/health#application-log), or `storage/logs/` over FTP |
 | Something subtly broken | **Roll back**, noting the data cost above |
 | "Version mismatch" | The ZIP and manifest disagree — a packaging error, not your problem to fix |
