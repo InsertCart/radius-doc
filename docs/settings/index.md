@@ -330,7 +330,10 @@ a full `https://wa.me/...` link.
 | Prices already include tax | boolean | off | |
 | Flat shipping fee | number | `0` | |
 | Free shipping over | number | `0` | `0` disables free shipping |
+| Sell to | select | `The whole world` | Switch to **Only the countries I choose** to limit where you take orders from |
+| Countries you sell to | multi-select | none | A searchable checkbox list. Only shown when **Sell to** is set to the chosen-countries option. Leaving every box unticked keeps the shop worldwide |
 | Allow guest checkout | boolean | on | |
+| Remember customer addresses | boolean | on | Fills checkout in from the address the customer used last time, and gives signed-in customers an address book |
 | Track stock levels | boolean | on | |
 | Low stock threshold | number | `5` | Flags products on the list screen |
 | Order number prefix | text | `ORD-` | |

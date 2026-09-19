@@ -116,6 +116,7 @@ export default defineConfig({
         items: [
           { text: 'Products & stock', link: '/shop/' },
           { text: 'Digital products', link: '/shop/digital-products' },
+          { text: 'Checkout & addresses', link: '/shop/checkout' },
           { text: 'Orders & coupons', link: '/shop/orders' },
           { text: 'Payment gateways', link: '/shop/payments' },
         ],
