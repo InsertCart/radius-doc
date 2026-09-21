@@ -32,7 +32,10 @@ Then wrap the theme's own markup in the matching directive:
     {{-- The theme's own header, used until an admin builds one --}}
     <header class="site-header">
         <a href="{{ url('/') }}">{{ setting('site_name') }}</a>
-        {!! menu('primary') !!}
+        @foreach ($siteMenus['primary'] ?? [] as $item)
+            @continue(! $item->isVisible())
+            <a href="{{ $item->resolveUrl() }}">{{ $item->label }}</a>
+        @endforeach
     </header>
 @endregion
 ```

@@ -1,7 +1,7 @@
 # Menus
 
 Navigation. A menu is a named, ordered tree of links that a theme renders
-wherever it declares a menu location.
+wherever it looks the menu's slug up.
 
 <ScreenList :screens="[
   { route: '/admin/menus', name: 'Menu list' },
@@ -16,12 +16,14 @@ wherever it declares a menu location.
   screen="/admin/menus"
   alt="The menu list showing each menu's name, location and item count" />
 
-A menu has a **name** and a **location**. The location is what connects it to
-your theme: a theme declares the locations it supports in `theme.json`, and
-whichever menu is assigned to a location renders there.
+A menu has a **name** and a **slug**. The slug is what connects it to your
+theme: a theme looks up `$siteMenus['<slug>']` wherever it wants to render a
+menu, so whichever menu you give that slug renders there.
 
-Common locations are `primary`, `footer` and `mobile`, but they are entirely up
-to the theme. See [Building a theme](/appearance/theme-development).
+Common slugs are `header`, `footer` and `mobile`, but they are entirely up to
+the theme — there is nothing in `theme.json` that declares them. Check the
+theme's partials (for example `views/partials/header.blade.php`) for which
+slugs it looks up. See [Building a theme](/appearance/theme-development).
 
 ## Adding items
 
@@ -77,19 +79,28 @@ item needs removing by hand.
 
 ## Rendering a menu in a theme
 
-```blade
-{!! menu('primary') !!}
-```
-
-Or, for full control over the markup:
+Every theme view is handed a `$siteMenus` array, keyed by slug, of the items in
+that menu's top level (each with its `children` already loaded):
 
 ```blade
-@foreach (menu_items('primary') as $item)
-    <a href="{{ $item->url }}" @class(['active' => $item->isActive()])>
+@foreach ($siteMenus['header'] ?? [] as $item)
+    @continue(! $item->isVisible())
+    <a href="{{ $item->resolveUrl() }}" target="{{ $item->target }}">
         {{ $item->label }}
     </a>
+    @if ($item->children->isNotEmpty())
+        {{-- render $item->children the same way for a dropdown --}}
+    @endif
 @endforeach
 ```
+
+A slug with no matching menu is simply an empty array, so `?? []` keeps the
+loop from erroring on a site that has not created that menu yet.
+
+`isVisible()` applies the item's **Visibility** setting (signed-in / signed-out
+only) and whether its module is on. `resolveUrl()` is the actual link — read
+`$item->url` directly and a page or post item resolves to nothing, since the
+stored value is the page/post reference, not a URL.
 
 The builder also has a **Navigation menu** widget, so a menu can be dropped into
 a header you designed visually rather than one the theme hardcodes. See

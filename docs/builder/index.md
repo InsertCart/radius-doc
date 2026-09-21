@@ -7,7 +7,6 @@ into Radius rather than bolted on, and **it does not replace your theme**.
   { route: '/admin/builder', name: 'Builder overview' },
   { route: '/admin/builder/edit/{type}/{id}', name: 'The editor' },
   { route: '/admin/builder/preview/{type}/{id}', name: 'Preview' },
-  { route: '/admin/builder/presets', name: 'Saved sections' },
   { route: '/admin/builder/{layout}/revisions', name: 'Revision history' },
 ]" />
 
@@ -132,15 +131,38 @@ works, but it is the thing you will regret when the brand colour changes.
 
 ## Saved sections
 
-Built a hero you want on six pages? Save the section as a **preset** and drop it
-in elsewhere.
+Built a hero you want on six pages? Save the section once and drop it in
+anywhere else.
+
+**To save a section:**
+
+1. In the editor, click the section, or anything inside it.
+2. Click the **folder icon**, either in the toolbar floating above the element
+   on the canvas or at the top of the settings panel.
+3. Give it a name. Saving a column or widget saves the whole section it sits in.
+
+**To use it:** open the **Widgets** panel of any layout. Your sections are
+listed under **Saved sections**, just below the column layouts. Click one to
+add it after the selected section (or at the end of the page), or drag it onto
+the canvas to place it exactly. The search box filters them by name too.
 
 <Screenshot
-  src="builder/presets.png"
-  screen="/admin/builder/presets"
-  alt="The saved sections library, showing thumbnails of stored presets" />
+  src="builder/saved-sections.png"
+  screen="/admin/builder/edit/{type}/{id}"
+  alt="The editor's widget panel with a Saved sections group listing two saved sections" />
 
-A preset is a copy, not a link — editing one instance does not change the others.
+A saved section is a copy, not a link — editing it on one page does not change
+it on the others, or change the saved original. Inserting one is an ordinary
+edit: it can be undone, and it stays a draft until you publish.
+
+**To delete one**, go to **Builder** in the admin menu and use the **Saved
+sections** card. Pages that already use it keep their copy.
+
+::: tip Raw HTML stays admin-only
+A saved section is cleaned the same way a published layout is. If an editor
+saves a section containing an HTML widget, the markup is sanitised, so saved
+sections can't be used to sneak scripts onto the site.
+:::
 
 ## Keyboard shortcuts
 

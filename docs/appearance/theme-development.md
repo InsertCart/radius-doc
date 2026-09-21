@@ -20,24 +20,18 @@ templates for every screen and can replace them one at a time.
 ```json
 {
   "name": "My theme",
+  "slug": "my-theme",
   "version": "1.0.0",
   "author": "Your name",
   "description": "One line, shown in the theme list.",
   "screenshot": "screenshot.png",
-
-  "menus": {
-    "primary": "Primary navigation",
-    "footer": "Footer links"
-  },
 
   "regions": {
     "header": "Site header",
     "footer": "Site footer",
     "before_content": "Before page content",
     "after_content": "After page content"
-  },
-
-  "supports": ["dark_mode"]
+  }
 }
 ```
 
@@ -45,9 +39,16 @@ Only `name` and `version` are required.
 
 | Key | Does |
 | --- | --- |
-| `menus` | Declares menu locations, which then appear in [Menus](/admin/menus) |
+| `slug` | Fixes the theme's identifier/folder name instead of deriving it from `name` |
 | `regions` | Declares which parts the [visual builder](/builder/regions) may take over |
-| `supports` | Feature flags; `dark_mode` tells the logo component to use `auto` ink |
+
+::: tip Menus are not declared in theme.json
+There is no `menus` key. A menu's **slug**, set when it is created in
+[Menus](/admin/menus), is what connects it to your theme — your theme decides
+which slugs it looks up (see [Menus](#menus) below). A `supports` array is
+likewise not read by the CMS; it has no effect on anything, including dark mode
+(see [Branding](#branding) below).
+:::
 
 ### Screenshot
 
@@ -115,7 +116,10 @@ Leave any of them out and the default theme's version is used.
             <a href="{{ url('/') }}">
                 <x-site-logo on="light" class="h-10 w-auto" />
             </a>
-            {!! menu('primary') !!}
+            @foreach ($siteMenus['primary'] ?? [] as $item)
+                @continue(! $item->isVisible())
+                <a href="{{ $item->resolveUrl() }}">{{ $item->label }}</a>
+            @endforeach
         </header>
     @endregion
 
@@ -147,8 +151,18 @@ setting('site_name')            // any value from Settings
 setting('shop_currency', 'USD') // with a fallback
 theme_asset('css/theme.css')    // a URL under public/themes/<slug>/, versioned
 safe_url($settings['link'])     // a link typed in the builder, or '' if unsafe
-theme_option('key')             // this theme's own stored options
+safe_route('shop.index')        // route(), or '' if the route doesn't exist right now
+format_date($post->published_at)
+money($product->price)          // minor units formatted as currency; also @money(...) in Blade
+theme_view('search.form')       // this theme's own view if it has one, else the CMS's
 ```
+
+::: tip There is no per-theme "options" screen
+A theme cannot declare its own settings for the site owner to fill in outside
+the builder. If a theme needs to be configurable, use [builder section
+controls](#declare-the-sections) (owner-editable per region) or read [Settings
+→ Appearance → Custom CSS](/settings/#appearance) for styling.
+:::
 
 ### Branding
 
@@ -162,7 +176,8 @@ whoever writes the tag can actually see:
 <x-site-logo on="dark" small class="h-8" />     {{-- surface is always dark --}}
 ```
 
-`on="auto"` (the default) resolves through the **Color scheme** setting. On
+`on="auto"` (the default) resolves through the site-wide **Color scheme**
+setting (Settings → Appearance) — not anything declared by the theme. On
 *Always light* or *Always dark* the choice is made server-side; on *Follow
 visitor system setting* the component emits a `<picture>` with a
 `prefers-color-scheme` source, because the server never learns what the
@@ -170,26 +185,34 @@ visitor's browser prefers.
 
 ::: tip If your theme is light-only, say so explicitly
 Ask for `on="light"`. A white logo on a bar that never darkens is just an
-invisible logo. Only use `auto` if you actually implement dark mode.
+invisible logo. Only use `auto` if your theme's CSS actually looks right in
+both colour schemes — there is no `theme.json` flag to declare this either way.
 :::
 
 Full helper list in [Branding](/appearance/branding#helpers).
 
 ### Menus
 
-```blade
-{!! menu('primary') !!}
-```
-
-Or, for control over the markup:
+Every theme view is handed `$siteMenus`, an array keyed by menu **slug** of
+that menu's top-level items (each with `children` eager loaded):
 
 ```blade
-@foreach (menu_items('primary') as $item)
-    <a href="{{ $item->url }}" @class(['active' => $item->isActive()])>
+@foreach ($siteMenus['primary'] ?? [] as $item)
+    @continue(! $item->isVisible())
+    <a href="{{ $item->resolveUrl() }}" target="{{ $item->target }}"
+       @class(['active' => request()->url() === $item->resolveUrl()])>
         {{ $item->label }}
     </a>
 @endforeach
 ```
+
+Use `$item->resolveUrl()`, not `$item->url` — a page or post item stores the
+page/post it points at, not a literal URL, so `->url` is empty for those types.
+`isVisible()` applies the item's Visibility setting (signed-in / signed-out
+only) and hides it if its module is off. There is nothing in `theme.json` that
+declares which slugs exist; a theme simply documents which ones it looks up
+(`primary`, `footer`, whatever it needs), and the site owner points a menu at
+that slug in [Menus](/admin/menus).
 
 ### Modules
 
@@ -202,7 +225,18 @@ Never assume a module is on:
 ```
 
 A theme that links to `route('shop.index')` unconditionally throws when the
-shop is off, because that route does not exist.
+shop is off, because that route does not exist. `safe_route('shop.index')`
+(above) is a shorthand for the same guard when you just need the URL.
+
+The `@module` / `@endmodule` directive does the same check for a block of
+markup, and `@anymodule('shop', 'blog')` ... `@endanymodule` is true if any of
+the named modules is on:
+
+```blade
+@module('shop')
+    <a href="{{ route('shop.index') }}">Shop</a>
+@endmodule
+```
 
 ### Media
 
@@ -210,7 +244,9 @@ shop is off, because that route does not exist.
 <img src="{{ $post->image_url('medium') }}" alt="{{ $post->image_alt }}">
 ```
 
-Sizes are `thumb`, `medium`, `large`, or omit for the original.
+Sizes are `thumb`, `medium`, `large`, or omit for the original. `media_url($path)`
+resolves a stored media path to its public URL directly, for cases outside a
+model's own `image_url()` accessor.
 
 ### SEO
 
@@ -218,9 +254,10 @@ Sizes are `thumb`, `medium`, `large`, or omit for the original.
 {!! seo()->render() !!}
 ```
 
-One call emits the title, description, canonical, Open Graph, Twitter card and
-schema.org graph. Do not hand-write these tags — the [SEO module](/settings/#seo)
-already resolves per-page overrides against site defaults.
+Or, as a directive: `@seoHead`. One call emits the title, description,
+canonical, Open Graph, Twitter card and schema.org graph. Do not hand-write
+these tags — the [SEO module](/settings/#seo) already resolves per-page
+overrides against site defaults.
 
 ### Search
 
@@ -265,23 +302,6 @@ else's uptime, and hands them execution on your site. Ship the file in
 `assets/`.
 :::
 
-## Theme options
-
-Declare options in `theme.json` and they appear under Appearance for the site
-owner to set:
-
-```json
-"options": {
-  "accent_color": { "type": "color", "label": "Accent colour", "default": "#2563eb" },
-  "show_author":  { "type": "boolean", "label": "Show post authors", "default": true }
-}
-```
-
-Read them with `theme_option('accent_color')`.
-
-This is how you make a theme configurable without the owner editing files —
-which matters because their edits do not survive a theme update.
-
 ## Builder sections and starters
 
 A site owner can only rearrange what the builder can see. Without help, a
@@ -313,9 +333,40 @@ Its controls become the section's settings panel:
 | Key | Meaning |
 | --- | --- |
 | `label`, `icon` | The tile in the builder's **Your theme** group. Icons are from the builder's icon set |
+| `description` | Optional, shown under the label in the tile |
 | `view` | Defaults to `sections.<key>` |
 | `areas` | Optional list of regions the section is offered in. Leave it out to offer it everywhere |
-| `controls` | `text`, `textarea`, `richtext`, `number`, `toggle`, `select`, `color`, `image`, `link` or `icon`. A select's `options` is an object, or `@shop_categories`, `@blog_categories` or `@menus` |
+| `controls` | `text`, `textarea`, `richtext`, `number`, `slider`, `dimensions`, `toggle`, `select`, `color`, `image`, `link` or `icon`. A select's `options` is an object, or `@shop_categories`, `@blog_categories` or `@menus` |
+
+Every control also takes `key`, `label`, `default` and an optional `help` line
+shown under it. `number` and `slider` take `min`/`max`/`step`; `slider` also
+takes a `unit` (`px`, `%`, ...) shown next to the value.
+
+#### Binding a control to CSS
+
+Give a control `tab: "style"` and it moves to the section's **Style** tab
+instead of its main settings, and — if it also has `selector` and `property` —
+the builder writes its value straight into that CSS rule as the owner edits it,
+live, with no page reload:
+
+```json
+{ "type": "color", "key": "bg_color", "label": "Background", "tab": "style",
+  "section": "Colors", "selector": "{{WRAPPER}} .my-rail", "property": "background-color" }
+```
+
+| Key | Meaning |
+| --- | --- |
+| `tab` | `"style"` moves the control to the Style tab. Omit for the main settings tab |
+| `section` | Groups controls under a heading within the Style tab (e.g. "Colors", "Spacing") |
+| `selector` | The CSS selector to write to. `{{WRAPPER}}` is replaced with this instance's scope, so two copies of the same section never collide |
+| `selectors` | An array, when one control needs to set the same property on more than one selector |
+| `property` | The CSS property `selector` gets |
+| `units` | Array of unit choices offered alongside a `slider`/`number` value (e.g. `["px", "%"]`) |
+| `responsive` | `true` lets the owner set a different value per breakpoint |
+
+In practice `selector`/`property` is used with `color`, `slider` and `number`
+controls. A `text` or `select` control's value is read from `$settings` in
+your section's own Blade view instead.
 
 The view receives `$settings` (defaults already applied) and `$editing`. A
 section fetches its own data, because the builder can put it anywhere:
@@ -348,7 +399,7 @@ region with a starter opens in the editor already filled with it, as a draft:
 ```json
 {
   "header": [
-    { "key": "storefront", "label": "Storefront header",
+    { "key": "storefront", "label": "Storefront header", "hint": "Logo, nav and cart icon",
       "sections": [ { "width": "edge", "widgets": [ { "section": "header" } ] } ] }
   ],
   "home": [
@@ -365,7 +416,8 @@ region with a starter opens in the editor already filled with it, as a draft:
 that draws its own full-width band and inner container. A widget is either
 `{ "section": "…" }` or an ordinary builder widget such as
 `{ "type": "heading", "settings": { "text": "Hello" } }`. A section can also
-hold several `columns`, each with a `width` and `widgets`.
+hold several `columns`, each with a `width` and `widgets`. `hint`, shown under
+a starter's `label` when the owner picks one, is optional.
 
 ### Let the editor load your stylesheet
 
@@ -471,7 +523,7 @@ files.
 | Instead of | Do this |
 | --- | --- |
 | Editing `themes/default/` | Copy it to `themes/my-theme/` and edit that |
-| Editing a bought theme | Check whether it supports a child theme or options |
+| Editing a bought theme | Check whether it supports a child theme or configurable builder sections |
 | Small CSS tweaks | [Settings → Appearance → Custom CSS](/settings/#appearance) |
 
 Updates never touch a theme you installed or created yourself. The two bundled
