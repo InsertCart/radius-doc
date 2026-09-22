@@ -118,6 +118,13 @@ module toggles, order status changes, refunds and updates.
 Filter by user, action type and date. This is the first place to look when
 something changed and nobody remembers changing it.
 
+To keep the database small, entries older than **45 days** are deleted
+automatically. Change this under
+[Settings → Advanced](/settings/#advanced) → **Delete activity log entries after
+(days)**; set it to `0` to keep everything. The activity page shows the current
+setting with a link to it. Clean-up runs daily from the scheduler when the cron
+entry is set up, and otherwise the next time an admin action is logged.
+
 ## Application log
 
 <Screenshot

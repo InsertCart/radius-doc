@@ -58,6 +58,7 @@ holding it could forge session cookies for all of them.
 | Variable | Default | Notes |
 | --- | --- | --- |
 | `CMS_ADMIN_PREFIX` | `admin` | Moves the admin panel off the predictable path |
+| `CMS_API_PREFIX` | `api` | Where the [Mobile API](/system/mobile-api) answers. Change it only if the site already uses `/api` |
 | `CMS_MEDIA_DISK` | `public` | Where uploads go |
 | `CMS_DOWNLOADS_DISK` | `private` | Where paid files go — **keep it private** |
 | `CMS_DOWNLOADS_MAX_KB` | `262144` | 256 MB default limit for sold files |

@@ -142,6 +142,7 @@ export default defineConfig({
         items: [
           { text: 'Modules', link: '/system/modules' },
           { text: 'Media storage & CDN', link: '/system/media-storage' },
+          { text: 'Mobile API', link: '/system/mobile-api' },
           { text: 'System health', link: '/system/health' },
           { text: 'Updates & backups', link: '/system/updates' },
           { text: 'Security', link: '/system/security' },
@@ -162,6 +163,7 @@ export default defineConfig({
           { text: 'Project layout', link: '/developers/project-layout' },
           { text: 'Local development', link: '/developers/local-setup' },
           { text: 'Search internals', link: '/developers/search' },
+          { text: 'Mobile API reference', link: '/developers/mobile-api' },
           { text: 'Cutting a release', link: '/developers/releases' },
         ],
       },

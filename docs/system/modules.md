@@ -1,7 +1,7 @@
 # Modules
 
-Every optional feature is a module. Thirteen ship with Radius; **four are core and
-cannot be switched off**.
+Every optional feature is a module. Fourteen ship with Radius; **four are core and
+cannot be switched off**, and one — the Mobile API — **arrives switched off**.
 
 <ScreenList :screens="[
   { route: '/admin/modules', name: 'Modules', role: 'Administrator' },
@@ -31,6 +31,11 @@ cannot be switched off**.
 | **Contact forms** | Front-end form and submission inbox | No |
 | **Newsletter** | Subscriber capture and CSV export | No |
 | **Media storage & CDN** | Serve uploads from S3, Spaces, R2, Google Cloud, FTP or a pull CDN — see [Media storage](/system/media-storage) | No |
+| **Mobile API** | A JSON API for a mobile app — see [Mobile API](/system/mobile-api). Ships switched off | No |
+
+Every module except the Mobile API arrives switched on, because each is part of
+running a website. The API opens the site to programs, which is nobody's
+default, so it waits until you turn it on.
 
 ## What "off" actually means
 

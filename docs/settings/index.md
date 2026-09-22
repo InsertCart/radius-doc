@@ -367,6 +367,7 @@ Caching, reCAPTCHA, registration and two security switches.
 | Require email verification | boolean | off | Needs working email |
 | Force HTTPS | boolean | off | |
 | Require 2FA for admin accounts | boolean | off | Every admin must enrol |
+| Delete activity log entries after (days) | number | `45` | `0` keeps them forever. See [Activity log](/system/health#activity-log) |
 
 ### How page caching works
 
