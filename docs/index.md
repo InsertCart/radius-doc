@@ -14,6 +14,9 @@ hero:
       text: Install Radius
       link: /guide/installation
     - theme: alt
+      text: Download Radius
+      link: https://github.com/InsertCart/radius/releases/latest/download/radius.zip
+    - theme: alt
       text: What Radius is
       link: /guide/introduction
     - theme: alt
