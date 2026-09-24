@@ -278,6 +278,24 @@ went out of stock, a price that changed.
 available payment methods, the countries the shop sells to, and — for a
 signed-in customer — their saved addresses and a prefill.
 
+`data.fields` says how to draw the form, following **Settings → Checkout**. Each
+field is `required`, `optional` or `hidden`:
+
+```json
+"fields": {
+  "email": "required", "name": "required", "phone": "optional",
+  "line1": "required", "line2": "optional", "city": "required",
+  "state": "optional", "postcode": "optional", "country": "required",
+  "customer_note": "optional"
+}
+```
+
+Leave `hidden` fields out of the form. The address parts (`line1` to `country`)
+apply to both `billing` and `shipping`, and `name` is `billing.name`. The server
+enforces the same rules: a blank required field gets a `422`, and anything sent
+for a hidden field is dropped. If every address part is `hidden`, don't offer
+`ship_to_different`.
+
 `POST /api/v1/checkout` places the order:
 
 ```json

@@ -1,6 +1,6 @@
 # Modules
 
-Every optional feature is a module. Fourteen ship with Radius; **four are core and
+Every optional feature is a module. Fifteen ship with Radius; **four are core and
 cannot be switched off**, and one — the Mobile API — **arrives switched off**.
 
 <ScreenList :screens="[
@@ -31,6 +31,7 @@ cannot be switched off**, and one — the Mobile API — **arrives switched off*
 | **Contact forms** | Front-end form and submission inbox | No |
 | **Newsletter** | Subscriber capture and CSV export | No |
 | **Media storage & CDN** | Serve uploads from S3, Spaces, R2, Google Cloud, FTP or a pull CDN — see [Media storage](/system/media-storage) | No |
+| **Import & export** | Move content in and out as a portable bundle, and import a WordPress site — see [Import & export](/system/import-export) | No |
 | **Mobile API** | A JSON API for a mobile app — see [Mobile API](/system/mobile-api). Ships switched off | No |
 
 Every module except the Mobile API arrives switched on, because each is part of

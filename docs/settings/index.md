@@ -346,6 +346,23 @@ Prices are stored as integers in the currency's minor unit. Switching from INR
 to USD turns ₹499 into $499. See [Payment gateways](/shop/payments#currency).
 :::
 
+## Checkout
+
+**Needs the shop module.** Chooses what checkout asks the customer for. Each
+field is **Required**, **Optional** or **Hidden**. Email address and full name
+are always required. See [Choosing the checkout fields](/shop/checkout#choosing-the-checkout-fields).
+
+| Field | Default |
+| --- | --- |
+| Phone | Optional |
+| Street address | Required |
+| Apartment, suite, unit | Optional |
+| City | Required |
+| State / region | Optional |
+| Postcode / ZIP | Optional |
+| Country | Required. Always required while **Sell to** is limited to chosen countries |
+| Order notes | Optional |
+
 ## Advanced
 
 Caching, reCAPTCHA, registration and two security switches.

@@ -4,7 +4,61 @@
   { route: '/checkout', name: 'Checkout', role: 'Public' },
   { route: '/account/addresses', name: 'Customer address book', role: 'Customer' },
   { route: '/admin/settings/shop', name: 'Shop settings' },
+  { route: '/admin/settings/checkout', name: 'Checkout field settings' },
 ]" />
+
+## Choosing the checkout fields
+
+**Settings → Checkout** decides what checkout asks for. Each field is set to
+one of three positions:
+
+| Position | On the form | When the order is placed |
+| --- | --- | --- |
+| **Required** | Shown, and the browser will not submit it blank | Refused if blank |
+| **Optional** | Shown | Accepted blank |
+| **Hidden** | Left off | Anything sent for it is thrown away |
+
+| Field | Default |
+| --- | --- |
+| Phone | Optional |
+| Street address | Required |
+| Apartment, suite, unit | Optional |
+| City | Required |
+| State / region | Optional |
+| Postcode / ZIP | Optional |
+| Country | Required |
+| Order notes | Optional |
+
+**Email address** and **Full name** are always required. An order with no email
+cannot be confirmed or looked up, and every payment provider needs a name.
+
+The choice is enforced by the server, not just the form. A crafted request
+cannot skip a required field or slip a hidden one onto an order. The same rules
+apply to the website checkout, the builder's **Checkout** widget and the
+[mobile API](/developers/mobile-api#checkout-and-payment).
+
+A few things follow from it:
+
+- **Country stays required while you sell to chosen countries.** The shop has
+  to know where an order is going to refuse the places it doesn't serve (see
+  [Where you sell](#where-you-sell)).
+- **Hiding every address field removes the address entirely.** The section is
+  renamed **Your details**, and **Ship to a different address** disappears. This
+  suits a shop that only sells downloads.
+- **A different delivery address follows the same rules.** If a postcode is
+  required, it is required for the delivery address too, but only once the
+  customer ticks **Ship to a different address**.
+- **The address book needs a whole address.** If you hide or make optional the
+  street, city or country, an order that leaves one of them out is still placed,
+  but that address is not saved to the customer's account.
+
+::: warning Third-party themes
+The bundled themes and the builder's Checkout widget follow these settings. A
+theme that draws its own checkout has to support them too; see
+[Checkout fields](/appearance/theme-development#checkout-fields). Before making a
+field **Required**, check that your theme shows it. A required field the form
+never draws means nobody can place an order.
+:::
 
 ## Where you sell
 

@@ -13,6 +13,9 @@ php artisan cms:sync --themes      # re-scan the themes folder
 php artisan cms:cdn-sync           # move the media library to the storage provider
 php artisan cms:demo               # install sample content
 php artisan cms:demo --remove      # delete that sample content
+php artisan cms:export             # export content as a portable bundle
+php artisan cms:import             # import a Radius export bundle
+php artisan cms:import-wordpress   # import a WordPress .xml export
 php artisan cms:update             # install an available update
 php artisan cms:release            # build a release ZIP (maintainers)
 php artisan cms:theme-package      # build a checked, installable theme ZIP
@@ -124,6 +127,79 @@ php artisan cms:marketplace-entry path/to/aurora-1.2.0.zip \
 `--url` is the folder the ZIP and its `screenshot.png` will be served from. It
 warns about files the theme installer would drop, and refuses a `theme.json`
 whose version is written as a number.
+
+### `cms:export`
+
+Writes the same bundle the [Import & export](/system/import-export) screen
+does, without an upload limit or a request timeout. The format to reach for on
+a site with tens of thousands of records.
+
+```bash
+php artisan cms:export --output=/backups
+php artisan cms:export --types=posts,pages --status=published --format=json
+php artisan cms:export --types=products --format=csv --from=2026-01-01
+```
+
+| Option | Does |
+| --- | --- |
+| `--types=` | Comma-separated: `pages,posts,categories,tags,comments,products,coupons,menus,media`. Default is everything |
+| `--ids=` | Just these records, by id. Needs a single `--types`, so there is no doubt what the ids belong to |
+| `--status=` | Only records with this status |
+| `--from=` / `--to=` | Date range: posts by publication, everything else by creation |
+| `--format=` | `zip` (default), `json` or `csv` |
+| `--no-media` | Leave the image files out of the archive |
+| `--no-layouts` | Leave builder layouts out |
+| `--output=` | A directory, or a full path. Defaults to the current directory |
+
+### `cms:import`
+
+Applies a bundle. No time limit, unlike the web importer, which stops itself
+after ten minutes so a request cannot hang.
+
+```bash
+php artisan cms:import backup.zip --dry-run     # say what is in it, change nothing
+php artisan cms:import backup.zip               # skip anything already here
+php artisan cms:import backup.zip --update      # overwrite it instead
+```
+
+| Option | Does |
+| --- | --- |
+| `--types=` | Only these types, whatever else the file holds |
+| `--update` | Overwrite records that already exist, instead of skipping them |
+| `--status=` | Force everything to `draft` or `published` |
+| `--author=` | Email of the account to own content whose author is not on this site |
+| `--create-authors` | Create accounts for authors this site has not got, with no usable password |
+| `--no-media` | Do not touch the media library |
+| `--download` | Fetch images the bundle does not carry from the old site |
+| `--no-layouts` | Skip builder layouts |
+| `--dry-run` | Read and report, import nothing |
+
+Exits non-zero when any record failed, so a scripted migration can tell.
+
+### `cms:import-wordpress`
+
+Imports a WordPress `.xml` (WXR) export — posts, pages, categories, tags,
+comments, menus and WooCommerce products. See
+[Import & export](/system/import-export#importing-from-wordpress) for what does
+and does not come across.
+
+```bash
+php artisan cms:import-wordpress export.xml --dry-run
+php artisan cms:import-wordpress export.xml --media --create-authors
+```
+
+| Option | Does |
+| --- | --- |
+| `--media` | Fetch the image files from the old site. Without it, no pictures arrive |
+| `--types=` | Only these types |
+| `--update` | Overwrite records that already exist |
+| `--status=` | Force everything to `draft` or `published` |
+| `--author=` | Email of the account to own posts whose writer is not on this site |
+| `--create-authors` | Create accounts for the WordPress authors |
+| `--dry-run` | Read and report, import nothing |
+
+Running the same file twice is safe: everything already brought across is
+skipped.
 
 ### `search:rebuild`
 

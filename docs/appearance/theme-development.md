@@ -276,6 +276,42 @@ Restyle the dropdown with `--radius-search-*` CSS properties, or override
 `views/search/index.blade.php`, `form.blade.php` or `script.blade.php`. See
 [Search internals](/developers/search#theming-search) for every option.
 
+### Checkout fields
+
+A theme with its own `shop/checkout.blade.php` should follow
+[Settings → Checkout](/shop/checkout#choosing-the-checkout-fields), where the
+shop picks which fields to ask for and which are required. The view receives
+`$checkoutFields`:
+
+| Call | Returns |
+| --- | --- |
+| `$checkoutFields->shows('phone')` | `false` when the field is hidden |
+| `$checkoutFields->requires('phone')` | `true` when it must be filled in |
+| `$checkoutFields->asksForAddress()` | `false` when every address part is hidden, so there is no address to draw |
+
+The fields are `phone`, `line1`, `line2`, `city`, `state`, `postcode`,
+`country` and `customer_note`. Email and `billing[name]` are always required.
+
+```blade
+@if ($checkoutFields->shows('postcode'))
+    <label for="billing-postcode">Postcode</label>
+    <input type="text" name="billing[postcode]" id="billing-postcode"
+           @required($checkoutFields->requires('postcode'))
+           value="{{ old('billing.postcode', $billing['postcode'] ?? null) }}">
+@endif
+```
+
+- Draw every field that `shows()`. The server refuses a blank required field,
+  so a required field your form never draws blocks every order.
+- If you offer **Ship to a different address**, draw the same parts for
+  `shipping[...]`, only when `asksForAddress()` is `true`. Don't put `required`
+  on inputs inside a panel that starts hidden: the browser would refuse to
+  submit the form. The server checks them once the box is ticked.
+- `$checkoutFields` arrived in Radius 1.2.9. A theme that also installs on older
+  versions should treat a missing `$checkoutFields` as "show everything, with
+  the old requirements" rather than call `app(...)` on a class those versions
+  don't have.
+
 ## Assets
 
 Put CSS and JS in `assets/`, reference with `theme_asset()`. On activation the
