@@ -19,6 +19,7 @@ php artisan cms:import-wordpress   # import a WordPress .xml export
 php artisan cms:update             # install an available update
 php artisan cms:release            # build a release ZIP (maintainers)
 php artisan cms:theme-package      # build a checked, installable theme ZIP
+php artisan cms:plugin list        # list, switch on/off, uninstall or package plugins
 php artisan cms:marketplace-entry  # print a theme directory listing for a ZIP
 php artisan search:rebuild         # rebuild the site search index
 php artisan search:status          # show the search engine and index state
@@ -112,6 +113,23 @@ the ZIP if they fail. It also checks the screenshot's size and format. Use
 
 The `default` theme cannot be packaged: it ships with every install and cannot
 be uploaded over.
+
+### `cms:plugin`
+
+```bash
+php artisan cms:plugin make <slug>           # start a new plugin from a working skeleton
+php artisan cms:plugin list                  # every plugin, on or off, and any that failed to load
+php artisan cms:plugin enable <slug>         # run its migrations and switch it on
+php artisan cms:plugin disable <slug>        # switch it off; data is kept
+php artisan cms:plugin uninstall <slug>      # remove it, its tables and its settings
+php artisan cms:plugin package <slug>        # build a checked, installable ZIP
+```
+
+`disable` is the quickest way back when a plugin has broken the admin panel.
+`package` writes `storage/app/private/plugin-packages/<slug>-<version>.zip`, or
+wherever `--output=` points, and prints the entry for the plugin directory's
+catalogue. `--url=` sets the address the ZIP will be served from. See [Plugins](/system/plugins) and
+[Building a plugin](/developers/plugins).
 
 ### `cms:marketplace-entry`
 

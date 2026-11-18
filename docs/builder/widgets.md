@@ -59,6 +59,41 @@ in the page; padding is not.
 Filter by category, tag or author, choose how many, and pick a layout. This is
 what you build a blog landing page out of without touching a template.
 
+### The Contact form widget
+
+The same form, and the same inbox, as your theme's contact page — messages land
+under **Contact** either way. What the widget adds is control over the fields.
+
+**The built-in fields.** Name, email, phone, subject and message. Phone and
+subject can be switched off entirely; name, phone, subject and message each have
+a **required** toggle under *Required fields*. The email address is the one field
+you cannot make optional or hide: it is the address every reply goes to, and what
+the inbox is searched on.
+
+**Extra fields.** Under *Extra fields*, add as many as you need — up to thirty.
+Each one takes a label, a type, an optional placeholder, a **Required** toggle,
+and a width (full or half; two half-width fields sit side by side).
+
+| Type | What the visitor sees |
+| --- | --- |
+| **Single line text** | A one-line box |
+| **Paragraph** | A multi-line box |
+| **Email address**, **Phone number**, **Web address** | Text boxes checked for that format |
+| **Number** | Digits only |
+| **Date** | A date picker |
+| **Dropdown** | A list of the choices you type, one per line |
+| **Checkbox** | A single tick box — required means it must be ticked, which is how you ask someone to agree to something |
+
+The answers arrive with the message and are listed under it in the inbox,
+labelled as they were when it was sent — so renaming a field later does not
+rewrite old messages.
+
+::: tip Required means required
+The rules are enforced by the server, not just by the browser. Each form carries
+an encrypted description of itself, so a required field cannot be dropped from
+the request and a field you never added cannot be smuggled in.
+:::
+
 ### The HTML widget
 
 The one place raw markup is accepted as-is. Everything you put here reaches the

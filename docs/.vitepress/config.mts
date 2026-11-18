@@ -127,6 +127,7 @@ export default defineConfig({
         items: [
           { text: 'Themes', link: '/appearance/themes' },
           { text: 'Theme directory', link: '/appearance/theme-directory' },
+          { text: 'Theme preview & demos', link: '/appearance/theme-preview' },
           { text: 'Building a theme', link: '/appearance/theme-development' },
           { text: 'Branding', link: '/appearance/branding' },
         ],
@@ -141,9 +142,11 @@ export default defineConfig({
         collapsed: false,
         items: [
           { text: 'Modules', link: '/system/modules' },
+          { text: 'Plugins', link: '/system/plugins' },
           { text: 'Media storage & CDN', link: '/system/media-storage' },
           { text: 'Mobile API', link: '/system/mobile-api' },
           { text: 'Import & export', link: '/system/import-export' },
+          { text: 'Change site address', link: '/system/site-address' },
           { text: 'System health', link: '/system/health' },
           { text: 'Updates & backups', link: '/system/updates' },
           { text: 'Security', link: '/system/security' },
@@ -165,6 +168,7 @@ export default defineConfig({
           { text: 'Local development', link: '/developers/local-setup' },
           { text: 'Search internals', link: '/developers/search' },
           { text: 'Mobile API reference', link: '/developers/mobile-api' },
+          { text: 'Building a plugin', link: '/developers/plugins' },
           { text: 'Cutting a release', link: '/developers/releases' },
         ],
       },

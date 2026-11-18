@@ -47,6 +47,16 @@ newsletter form and registration together.
 The form is also a builder widget, so you can drop it onto any page rather than
 sending people to `/contact`. See [Widgets](/builder/widgets).
 
+### Asking for more than the five standard fields
+
+The widget is also where you change which fields the form has: switch phone and
+subject off, decide which of the rest are required, and add extra fields of your
+own — a dropdown of departments, a company name, a consent checkbox. The answers
+appear under the message in the inbox and in the notification email. See
+[the Contact form widget](/builder/widgets#the-contact-form-widget).
+
+The theme's own `/contact` page keeps the five standard fields as it always has.
+
 ## Newsletter
 
 Subscriber capture and CSV export. Radius stores the list and hands it to you —

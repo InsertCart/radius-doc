@@ -63,6 +63,9 @@ holding it could forge session cookies for all of them.
 | `CMS_DOWNLOADS_DISK` | `private` | Where paid files go — **keep it private** |
 | `CMS_DOWNLOADS_MAX_KB` | `262144` | 256 MB default limit for sold files |
 | `SEARCH_INDEX_PATH` | `storage/app/search-index` | Where [index search](/admin/search) keeps its files. Must be writable |
+| `CMS_PLUGIN_UPLOADS` | `true` | `false` removes the plugin upload form; plugins can then only be copied onto the server. See [Plugins](/system/plugins) |
+| `CMS_PLUGIN_MARKETPLACE_URL` | InsertCart's `modules.json` | The catalogue *Browse plugins* reads. Empty turns that screen off |
+| `CMS_PLUGINS_SAFE_MODE` | `false` | `true` loads no plugin at all — the way back in when one has broken the site |
 | `CMS_UPDATE_URL` | GitHub releases endpoint | Unset to disable update checks |
 | `CMS_UPDATE_CHECK_HOURS` | `24` | How often to check |
 | `CMS_UPDATE_REQUIRE_CHECKSUM` | `true` | **Leave this alone** |

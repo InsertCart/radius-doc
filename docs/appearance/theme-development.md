@@ -455,10 +455,24 @@ that draws its own full-width band and inner container. A widget is either
 hold several `columns`, each with a `width` and `widgets`. `hint`, shown under
 a starter's `label` when the owner picks one, is optional.
 
+A section that only makes sense with a module can name it. It is left out of
+the starter while that module is switched off, so a blog-only site is not
+handed an empty product rail:
+
+```json
+{ "width": "edge", "module": "shop", "widgets": [ { "section": "rail" } ] }
+```
+
+Site pages take starters too. The key is the page's name: `blog_index`,
+`shop_index`, `cart`, `checkout` or `product`. The bundled Default theme ships
+one for `blog_index`, so its blog page opens in the editor as the theme's own
+list, search box and sidebar, with the number of posts per page as a setting.
+
 ### Let the editor load your stylesheet
 
-A region is previewed on its own, outside your layout. Tell the builder which
-assets and body class your sections need:
+A region that is part of a page, such as the header or the hero, is previewed
+on its own, outside your layout. Tell the builder which assets and body class
+your sections need:
 
 ```json
 "builder": {
@@ -474,6 +488,10 @@ Paths are relative to your theme's `assets/` folder.
 Give the homepage a region of its own, such as `"home": "Homepage (whole page)"`,
 and wrap its template in `@region('home')`. Owners can then reorder or remove
 every block on it, not just the hero.
+
+The `home` region is a whole page, so the editor previews it inside your
+layout, with your header and footer around it, the same way it previews the
+cart or the blog index.
 :::
 
 ## Packaging
@@ -493,13 +511,16 @@ theme that installs.
 Packaged storefront 1.0.1: 50 file(s)
 
   ok   passes the theme installer (50 file(s) accepted)
-  note views/partials/header.blade.php contains @php blocks.
+  note views/partials/footer.blade.php reads environment variables.
   ok   screenshot 1200x675
 
 Theme ZIP ready.
 ```
 
 `note` lines are information, not errors — an admin sees them after installing.
+They appear only for templates that query the database directly, read
+environment variables or read sensitive configuration. `@php` blocks and
+`{!! !!}` output are ordinary template work and are not reported.
 
 ::: warning Why not just zip the folder?
 Hand-made ZIPs fail in ways that only show up on somebody else's server:

@@ -3,6 +3,9 @@
 Every optional feature is a module. Fifteen ship with Radius; **four are core and
 cannot be switched off**, and one — the Mobile API — **arrives switched off**.
 
+Modules are part of every release. Add-ons installed separately, such as
+[Theme Preview](/appearance/theme-preview), are [plugins](/system/plugins).
+
 <ScreenList :screens="[
   { route: '/admin/modules', name: 'Modules', role: 'Administrator' },
 ]" />

@@ -105,13 +105,30 @@ so you can look before it goes live.
 - *Bring images across* — unpacks the files from a bundle into the media library
 - *Fetch missing images from the old site* — downloads anything the file only
   names. The old site has to still be up
-- *Repoint image addresses inside the content* — rewrites old addresses in post
-  bodies to this site's copies
+- *Repoint addresses to this site* — points images in the content at this
+  site's copies, and changes links to the old site to this one (see below)
 
 **Authors** — writers are matched to accounts here by email address. Anyone
 without a match gets the account you pick. Tick *Create accounts for missing
 authors* and they are created as customers **with no usable password**, so an
 import can never hand anybody a way in.
+
+### Moving from staging to live
+
+A bundle remembers the address of the site it was exported from. When you
+import it somewhere else, every link to that address is changed to the site
+doing the import. This covers post, page and product content, builder
+layouts, custom menu links, and canonical URLs. So a site built on
+`https://staging.example.com` and imported into `https://www.example.com`
+works straight away. Nothing needs a find-and-replace.
+
+- `http://`, `https://` and `//` links to the old site are all matched
+- A different site whose name only starts the same way, such as
+  `staging.example.com.au`, is left alone
+- Untick *Repoint addresses to this site* to import the content exactly as it is
+
+If you moved the **database** instead of using an export, use
+[Change site address](/system/site-address).
 
 ### Running it twice is safe
 

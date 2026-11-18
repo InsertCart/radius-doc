@@ -106,6 +106,22 @@ A region is edited in the same editor as a page. The difference is scope: **a
 region renders on every page that includes it**, so a mistake in a header is a
 mistake everywhere.
 
+### Moving between the parts of a site
+
+The header, the footer, the homepage and each site page are separate layouts,
+each with its own editor. Two things save a trip back to the overview:
+
+- **The list in the toolbar** names what you are editing and jumps to any other
+  part: the theme's regions, then the site pages (blog index, cart, checkout
+  and so on).
+- **The header and footer around a page.** A whole page, such as the homepage
+  or the blog index, is previewed inside the theme, header and footer included.
+  Point at either and it is outlined with an **Edit** label. Click it to open
+  that part's editor.
+
+Whatever you had not published is saved as a draft on the way out, so it is
+still there when you come back.
+
 ## Starter layouts
 
 Rather than starting from an empty canvas, each region offers a ready-made
@@ -121,6 +137,21 @@ a draft only. Visitors keep seeing the theme's version until you publish.
 A theme that ships starters usually offers a **Homepage (whole page)** region
 too. Build that one to rearrange every block on the homepage, not just the
 hero.
+
+Every bundled theme ships starters, the Default theme included. With Default
+active, the header, the footer, the homepage and the blog index all open as the
+theme's own version. That is where to:
+
+| To do this | Open | Then |
+| --- | --- | --- |
+| Change how many posts the homepage shows | **Homepage (whole page)** | Select **Latest blog posts** and set **How many posts** |
+| Hide a block on the homepage | **Homepage (whole page)** | Select the block and delete it |
+| Change how many posts a blog page lists | **Blog index** | Select **Blog listing** and set **Posts per page** |
+| Hide the blog's search box or sidebar | **Blog index** | Select **Blog listing** and switch it off |
+| Hide the cart icon or the sign-in link | **Site header** | Select the header and switch it off |
+| Hide the newsletter form, social links or "Powered by" | **Site footer** | Select the footer and switch it off |
+
+Nothing changes for visitors until you press **Publish**.
 
 <Screenshot
   src="builder/region-starters.png"
