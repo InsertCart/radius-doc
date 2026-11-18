@@ -1,4 +1,7 @@
 ---
+title: "Radius CMS Documentation"
+description: "Install, configure and extend Radius CMS 1.3.4. Find guides for the admin panel, visual builder, online store, themes, plugins and mobile API."
+titleTemplate: false
 layout: home
 
 hero:
@@ -25,10 +28,10 @@ hero:
 
 features:
   - title: Install in an afternoon
-    details: Upload, create an empty database, open your site. A four-step wizard checks your server, writes the config, migrates and creates your admin account.
+    details: Upload, create an empty database, open your site. A setup wizard checks your server, writes the config, migrates and creates your admin account.
     link: /guide/installation
     linkText: Installation guide
-  - title: Thirteen modules, nine optional
+  - title: Fifteen modules, eleven optional
     details: A switched-off module registers no routes and runs no queries, so a blog-only site carries none of the shop's weight.
     link: /system/modules
     linkText: Managing modules
@@ -65,9 +68,9 @@ features:
 
 ## About this documentation
 
-These pages describe **Radius 1.1.2**. Radius is under active development, so
+These pages describe **Radius 1.3.4**. Radius is under active development, so
 features arrive and screens change; each page records when it was last
-reviewed at the bottom.
+updated at the bottom.
 
 If something here is wrong or out of date, the fastest fix is the
 **"Suggest a change to this page"** link at the foot of any page — it opens

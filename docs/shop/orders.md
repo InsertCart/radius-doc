@@ -1,3 +1,8 @@
+---
+title: "Manage orders and coupons"
+description: "Process Radius CMS orders, review invoices and order details, and create coupons for store discounts."
+---
+
 # Orders & coupons
 
 <ScreenList :screens="[

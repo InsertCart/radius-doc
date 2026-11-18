@@ -1,3 +1,8 @@
+---
+title: "Use the visual page builder"
+description: "Build Radius CMS pages with sections, columns and widgets. Learn the editor workflow, responsive controls, revisions and saved sections."
+---
+
 # Visual builder
 
 A drag-and-drop editor for designing pages without writing HTML. It is built

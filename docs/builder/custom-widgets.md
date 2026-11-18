@@ -1,3 +1,8 @@
+---
+title: "Build a custom widget"
+description: "Extend the Radius CMS visual builder with custom widgets. Define fields, rendering and registration, and understand update considerations."
+---
+
 # Building a widget
 
 One PHP class and one Blade view. The settings panel is **generated from the

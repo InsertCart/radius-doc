@@ -1,3 +1,8 @@
+---
+title: "Enable and manage the mobile API"
+description: "Enable the Radius CMS mobile API, create app credentials and manage access for mobile clients from the admin panel."
+---
+
 # Mobile API
 
 A JSON API for a mobile app: your content, your shop and your customers'

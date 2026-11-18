@@ -1,3 +1,8 @@
+---
+title: "Use the admin dashboard"
+description: "Navigate the Radius CMS dashboard, sign in to the admin panel and find the tools for managing your content, store and site configuration."
+---
+
 # The dashboard
 
 The first screen after signing in. It summarises the site and links to whatever

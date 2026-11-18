@@ -1,3 +1,8 @@
+---
+title: "Set up local development"
+description: "Prepare a local Radius CMS development environment, configure your database and run the application and asset tooling."
+---
+
 # Local development
 
 ## Getting it running

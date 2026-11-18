@@ -1,3 +1,8 @@
+---
+title: "Search architecture and indexing"
+description: "Understand Radius CMS search internals, indexing and query handling when extending or troubleshooting site search."
+---
+
 # Search internals
 
 How site search is put together, and the four ways to extend it: restyle the

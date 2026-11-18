@@ -1,3 +1,8 @@
+---
+title: "Build and publish a Radius CMS release"
+description: "Prepare Radius CMS release archives, publish version tags and configure the update manifest and verification data."
+---
+
 # Cutting a release
 
 For maintainers. This is how a version reaches sites in the field.

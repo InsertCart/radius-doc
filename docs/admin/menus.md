@@ -1,3 +1,8 @@
+---
+title: "Build navigation menus"
+description: "Create navigation menus in Radius CMS, arrange links and nested items, and connect menus to your theme."
+---
+
 # Menus
 
 Navigation. A menu is a named, ordered tree of links that a theme renders

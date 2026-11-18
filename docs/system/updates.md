@@ -1,3 +1,8 @@
+---
+title: "Update Radius CMS and restore backups"
+description: "Update Radius CMS through the admin panel or command line. Learn release verification, backups, rollback and recovery from failed updates."
+---
+
 # Updates & backups
 
 Radius can install new releases itself. **Nothing is ever applied
@@ -48,7 +53,7 @@ white-label build usually wants. See [Branding](/appearance/branding#for-agencie
    [what an update touches](#what-an-update-touches) first.
 4. Update at a quiet hour. The site is briefly unavailable.
 
-## What an update does and does not touch
+## What an update does and does not touch {#what-an-update-touches}
 
 This is the section worth reading before your first update.
 

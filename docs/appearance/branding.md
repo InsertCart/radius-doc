@@ -1,3 +1,8 @@
+---
+title: "Customise site and admin branding"
+description: "Customise Radius CMS logos, site identity and admin branding, including configuration for agency and white-label installations."
+---
+
 # Branding
 
 Radius ships with its own logo and icon set so a fresh install looks finished
@@ -148,7 +153,7 @@ working whether the document root points at `public/` or at the project folder.
 
 ```php
 'name' => 'Radius',
-'version' => '1.1.2',
+'version' => '1.3.4',
 ```
 
 `name` appears in the admin footer and the installer. Buyers may rebrand freely

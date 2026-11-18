@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # VitePress reads git history to show "last reviewed" per page.
+          # VitePress reads git history to show "last updated" per page.
           fetch-depth: 0
 
       - uses: actions/setup-node@v4

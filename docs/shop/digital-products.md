@@ -1,3 +1,8 @@
+---
+title: "Sell digital products"
+description: "Configure paid downloads in Radius CMS with private files, download limits and order access for digital products."
+---
+
 # Digital products
 
 Files you sell: ebooks, music, templates, source code, photo packs.

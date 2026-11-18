@@ -1,3 +1,8 @@
+---
+title: "Visual builder widget reference"
+description: "Explore the Radius CMS builder widgets and their settings to add content, media, navigation and store elements to your pages."
+---
+
 # Widgets
 
 The palette ships with **29 widgets**, grouped by category. Widgets belonging to

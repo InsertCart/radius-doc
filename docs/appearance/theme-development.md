@@ -1,3 +1,8 @@
+---
+title: "Build a Radius CMS theme"
+description: "Develop a Radius CMS theme with Blade templates, theme configuration, assets and builder regions. Learn packaging and update behaviour."
+---
+
 # Building a theme
 
 Themes are Blade templates. If you have written a Laravel view, you have

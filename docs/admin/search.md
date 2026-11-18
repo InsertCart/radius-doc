@@ -1,3 +1,8 @@
+---
+title: "Configure site search"
+description: "Configure public search in Radius CMS, choose searchable content and rebuild the search index when content or settings change."
+---
+
 # Site search
 
 Radius gives visitors three ways to search your site. You pick the mix under

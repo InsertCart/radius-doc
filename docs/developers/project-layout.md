@@ -1,3 +1,8 @@
+---
+title: "Project structure and architecture"
+description: "Explore the Radius CMS project structure, Laravel application directories, modules, themes and files affected by updates."
+---
+
 # Project layout
 
 Radius is one Laravel 12 application. The CMS lives in `app/Cms/`, kept apart

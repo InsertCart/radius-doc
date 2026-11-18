@@ -1,3 +1,8 @@
+---
+title: "Configure payment gateways"
+description: "Set up Radius CMS payment gateways, credentials and webhooks. Learn how to test payments and manage refunds."
+---
+
 # Payment gateways
 
 Eight ways to take money. There is no platform fee — card fees are whatever you

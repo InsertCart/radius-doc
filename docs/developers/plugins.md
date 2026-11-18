@@ -1,3 +1,8 @@
+---
+title: "Build a Radius CMS plugin"
+description: "Develop and package a Radius CMS plugin with registration, routes and integrations that extend the application."
+---
+
 # Building a plugin
 
 A plugin is a Laravel service provider in a folder, with a `plugin.json` that

@@ -80,7 +80,7 @@ exact path to save to and the route to capture.
 
 Adding a screenshot needs **no markdown edit** — save the file at the path the
 placeholder names and it appears. See
-[`docs/public/images/README.md`](docs/public/images/README.md) for capture
+[`SCREENSHOTS.md`](SCREENSHOTS.md) for capture
 conventions and the privacy rules.
 
 ### `<ScreenList>`

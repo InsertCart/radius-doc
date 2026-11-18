@@ -1,3 +1,8 @@
+---
+title: "Check system health and logs"
+description: "Check Radius CMS server health, detect exposed files, clear caches and inspect application and activity logs."
+---
+
 # System health
 
 **System → System** is the screen to open when something is wrong, and the
@@ -59,8 +64,16 @@ Treat it as a live leak, not a warning.
 
 1. Fix the server configuration — see [Security](/system/security)
 2. Change your database password
-3. Run `php artisan key:generate`
-4. Re-enter every payment gateway's credentials (the old `APP_KEY` decrypted them)
+3. Read the [APP_KEY warning](/reference/env#application) and arrange command-line
+   access and a way to reset two-factor authentication before rotating the key
+4. Run `php artisan key:generate`, then clear the configuration cache with
+   `php artisan optimize:clear`. This signs everyone out and makes existing
+   encrypted payment credentials, two-factor secrets and recovery codes unreadable
+5. Re-enter every payment gateway's credentials, then reset and re-enrol
+   two-factor authentication for every affected account
+
+Follow the [compromise recovery procedure](/system/security#if-you-think-a-site-is-compromised)
+for the remaining account and site checks.
 
 Assume anything that was readable has been read.
 :::

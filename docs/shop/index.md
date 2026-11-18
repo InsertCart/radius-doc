@@ -1,3 +1,8 @@
+---
+title: "Manage products and stock"
+description: "Create Radius CMS products, configure variants and pricing, organise your catalogue and manage inventory and stock availability."
+---
+
 # Products & stock
 
 The shop is an **optional module** that depends on the payments module — a shop

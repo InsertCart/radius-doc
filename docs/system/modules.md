@@ -1,3 +1,8 @@
+---
+title: "Manage built-in modules"
+description: "Review the 15 Radius CMS modules, their core features and dependencies. Enable or disable optional modules and refresh cached routes."
+---
+
 # Modules
 
 Every optional feature is a module. Fifteen ship with Radius; **four are core and

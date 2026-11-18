@@ -1,3 +1,8 @@
+---
+title: "Change your site address"
+description: "Change a Radius CMS site URL or domain, update configuration and check your site after moving to a new address."
+---
+
 # Change site address
 
 Use this after copying a site's **database** to a new domain, for example

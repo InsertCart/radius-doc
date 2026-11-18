@@ -1,3 +1,8 @@
+---
+title: "Install Radius CMS"
+description: "Install Radius CMS with the browser setup wizard or Artisan commands. Configure your web root, database, site details and administrator account."
+---
+
 # Installation
 
 There are two routes: the **setup wizard** in a browser, which is what most

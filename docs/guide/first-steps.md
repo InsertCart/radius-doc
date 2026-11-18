@@ -1,3 +1,8 @@
+---
+title: "First steps after installation"
+description: "Prepare your Radius CMS site for launch with two-factor authentication, production settings, email, module configuration and security checks."
+---
+
 # First steps
 
 Work through these in order. Each one takes a minute, and the first two are the
@@ -93,9 +98,17 @@ correct.
   caption="Re-run this after any hosting change, not just once at install time." />
 
 ::: danger If it finds something readable
-Treat it as a live leak. Fix the server configuration, then **change your
-database password and run `php artisan key:generate`**. Assume anything that was
-readable has been read.
+Treat it as a live leak. Fix the server configuration, then change your database
+password and follow the [compromise recovery procedure](/system/security#if-you-think-a-site-is-compromised).
+
+Before running `php artisan key:generate`, arrange command-line access and a way
+to reset two-factor authentication. Changing `APP_KEY` signs everyone out and
+makes existing encrypted payment credentials, two-factor secrets and recovery
+codes unreadable. You must re-enter gateway credentials and reset and re-enrol
+two-factor authentication for every affected account. Read the
+[APP_KEY warning](/reference/env#application) before rotating it.
+
+Assume anything that was readable has been read.
 :::
 
 ## Then, when you are selling

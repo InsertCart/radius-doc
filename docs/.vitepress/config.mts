@@ -2,10 +2,11 @@ import { defineConfig } from 'vitepress'
 
 // The version documented here. Bump it when you tag a Radius release, so
 // readers can tell which release these pages describe.
-const RADIUS_VERSION = '1.1.2'
+const RADIUS_VERSION = '1.3.4'
+const SITE_URL = 'https://radiusdoc.insertcart.com'
 
 export default defineConfig({
-  title: 'Radius',
+  title: 'Radius CMS',
   description:
     'Documentation for Radius — a modular, self-hosted CMS and eCommerce platform built on Laravel 12.',
   lang: 'en-GB',
@@ -19,6 +20,35 @@ export default defineConfig({
 
   cleanUrls: true,
   lastUpdated: true,
+  srcExclude: ['public/**'],
+
+  transformHead({ pageData }) {
+    if (pageData.relativePath === '404.md') {
+      return [['meta', { name: 'robots', content: 'noindex' }]]
+    }
+  },
+
+  transformPageData(pageData) {
+    const head = (pageData.frontmatter.head ??= [])
+    const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+    const url = new URL(path, `${SITE_URL}/`).href
+    const title = pageData.frontmatter.titleTemplate === false
+      ? pageData.title
+      : `${pageData.title} | Radius CMS`
+
+    head.push(
+      ['link', { rel: 'canonical', href: url }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: pageData.description }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { property: 'og:image', content: `${SITE_URL}/radius-logo.png` }],
+      ['meta', { property: 'og:image:alt', content: 'Radius CMS' }],
+      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: pageData.description }],
+      ['meta', { name: 'twitter:image', content: `${SITE_URL}/radius-logo.png` }],
+    )
+  },
 
   head: [
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
@@ -27,7 +57,7 @@ export default defineConfig({
       'link',
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap',
       },
     ],
     ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
@@ -38,7 +68,7 @@ export default defineConfig({
   ],
 
   sitemap: {
-    hostname: 'https://radiusdoc.insertcart.com',
+    hostname: SITE_URL,
   },
 
   markdown: {
@@ -195,7 +225,7 @@ export default defineConfig({
 
     docFooter: { prev: 'Previous', next: 'Next' },
 
-    lastUpdatedText: 'Last reviewed',
+    lastUpdatedText: 'Last updated',
 
     footer: {
       message:

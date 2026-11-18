@@ -1,3 +1,8 @@
+---
+title: "Install and manage themes"
+description: "Upload, activate and update Radius CMS themes. Learn how theme validation works and how to manage your storefront appearance."
+---
+
 # Themes
 
 A theme controls how the public site looks. Themes are a **core module** and

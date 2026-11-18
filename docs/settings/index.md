@@ -1,3 +1,8 @@
+---
+title: "Site settings reference"
+description: "Configure Radius CMS settings for general site details, appearance, SEO, email, the shop, SMS, Firebase, social links and advanced options."
+---
+
 # All settings screens
 
 Ten screens, reached from **Settings** in the sidebar. This page is the full

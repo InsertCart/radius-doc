@@ -1,3 +1,8 @@
+---
+title: "Artisan command reference"
+description: "Look up Radius CMS Artisan commands for installation, maintenance, updates, demo content and routine administration."
+---
+
 # Artisan commands
 
 Run from the project root, where `artisan` lives. Everything here is optional —

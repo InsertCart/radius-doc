@@ -1,3 +1,8 @@
+---
+title: "Manage theme regions"
+description: "Create and edit Radius CMS theme regions for shared page areas. Connect builder content to the regions exposed by your theme."
+---
+
 # Theme regions
 
 How the builder and a theme share a page without fighting over it.

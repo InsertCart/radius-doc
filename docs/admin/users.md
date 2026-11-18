@@ -1,3 +1,8 @@
+---
+title: "Manage users, roles and two-factor authentication"
+description: "Manage Radius CMS administrators, editors and customers. Configure two-factor authentication, recovery codes and account access."
+---
+
 # Users & roles
 
 One account table serves both the admin panel and the storefront: one login

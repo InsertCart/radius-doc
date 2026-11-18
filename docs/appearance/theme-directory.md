@@ -1,3 +1,8 @@
+---
+title: "Browse the theme directory"
+description: "Find and install Radius CMS themes through the theme directory, inspect theme details and check available updates."
+---
+
 # Theme directory
 
 The theme directory lists free themes you can install in one click, without

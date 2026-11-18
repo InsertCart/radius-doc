@@ -1,3 +1,8 @@
+---
+title: "Secure your Radius CMS site"
+description: "Harden a Radius CMS installation with secure hosting, two-factor authentication, exposure checks and account recovery procedures."
+---
+
 # Security
 
 What Radius does for you, and what remains yours to get right.
@@ -183,9 +188,14 @@ about a hole before there is a fix for it.
 
 1. Put it in maintenance mode
 2. Change the database password
-3. Run `php artisan key:generate` — then **re-enter every gateway credential**,
-   because the old key decrypted them
-4. Force a password reset on every admin account and reset their second factors
+3. Read the [APP_KEY warning](/reference/env#application). Before rotating the
+   key, arrange command-line access and a way to reset two-factor authentication.
+   Changing the key signs everyone out and makes encrypted payment credentials,
+   two-factor secrets and recovery codes unreadable
+4. Run `php artisan key:generate`, clear cached configuration with
+   `php artisan optimize:clear`, then re-enter every gateway credential. Reset
+   and re-enrol two-factor authentication for every affected account, and force
+   a password reset on every admin account
 5. Read the [activity log](/system/health#activity-log) for what was done, and
    the [application log](/system/health#application-log) for how
 6. Compare files against a clean release; an update reports locally modified

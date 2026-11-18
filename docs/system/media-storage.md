@@ -1,3 +1,8 @@
+---
+title: "Configure media storage and a CDN"
+description: "Configure Radius CMS media storage and CDN delivery, including local storage and supported remote storage providers."
+---
+
 # Media storage & CDN
 
 By default, every upload is stored in this site's own `storage/app/public`

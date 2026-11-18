@@ -1,3 +1,8 @@
+---
+title: "Preview themes and demos"
+description: "Use the Radius CMS Theme Preview plugin to preview storefront themes and demos before changing the active theme."
+---
+
 # Theme Preview
 
 **Theme Preview** is a [plugin](/system/plugins) for looking at a theme

@@ -1,3 +1,8 @@
+---
+title: "Mobile API reference for developers"
+description: "Integrate a mobile app with Radius CMS using its JSON API. Review authentication, app access and the available endpoints."
+---
+
 # Mobile API for app developers
 
 Everything needed to build an app against a Radius site: authentication, the

@@ -1,3 +1,8 @@
+---
+title: "Environment variable reference"
+description: "Look up Radius CMS environment variables for application settings, databases, storage, plugins and updates, including APP_KEY precautions."
+---
+
 # Environment variables
 
 `.env` sits in the project root, one level above `public/`. It holds the things

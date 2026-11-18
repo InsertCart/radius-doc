@@ -1,3 +1,8 @@
+---
+title: "Manage posts, categories and comments"
+description: "Write and publish blog posts in Radius CMS. Organise categories and tags, schedule content and moderate reader comments."
+---
+
 # Posts, categories & comments
 
 The blog. This is an **optional module** — switch it off under

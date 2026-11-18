@@ -1,3 +1,8 @@
+---
+title: "Create and manage pages"
+description: "Create pages in Radius CMS, choose templates, use the visual builder, edit SEO fields and select your site homepage."
+---
+
 # Pages
 
 Static content: your homepage, About, Contact, Terms. Pages are a **core

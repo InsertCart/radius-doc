@@ -1,3 +1,8 @@
+---
+title: "Configure checkout and addresses"
+description: "Understand the Radius CMS cart and checkout flow, customer addresses, shipping, tax and order submission."
+---
+
 # Checkout & addresses
 
 <ScreenList :screens="[

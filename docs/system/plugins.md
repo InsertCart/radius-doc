@@ -1,3 +1,8 @@
+---
+title: "Install and manage plugins"
+description: "Install and manage Radius CMS plugins, browse available add-ons and use safe mode to recover from a plugin problem."
+---
+
 # Plugins
 
 Plugins are add-ons you install separately from Radius. Modules ship inside

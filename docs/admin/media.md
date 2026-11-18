@@ -1,3 +1,8 @@
+---
+title: "Manage the media library"
+description: "Upload and organise images and files in Radius CMS. Learn about thumbnails, upload validation, file limits and the media picker."
+---
+
 # Media library
 
 Every upload on the site goes through here — whether it came from this screen,

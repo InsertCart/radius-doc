@@ -1,3 +1,8 @@
+---
+title: "What is Radius CMS?"
+description: "Learn how Radius CMS combines content management, a visual page builder and eCommerce in a self-hosted Laravel application."
+---
+
 # What Radius is
 
 Radius is a **content management system and online store** that you install on
@@ -18,8 +23,8 @@ no revenue share, and no account to keep paying for.
 | **Marketing** | SEO meta and sitemaps, contact forms, newsletter capture, transactional SMS, web push |
 | **Administration** | Roles, two-factor authentication, an activity log, a health checklist, self-installing updates |
 
-Everything above the administration row is a **module**, and nine of the thirteen
-can be switched off. See [Modules](/system/modules).
+Radius ships with **fifteen modules**, including four core modules and eleven
+optional modules. See [Modules](/system/modules).
 
 ## The shape of the thing
 
@@ -66,5 +71,5 @@ Being straight about this saves everybody time.
 ## Where to go next
 
 - [Requirements](/guide/requirements) — check your host before you upload anything
-- [Installation](/guide/installation) — the four-step wizard, or the command line
+- [Installation](/guide/installation) — the setup wizard, or the command line
 - [First steps](/guide/first-steps) — what to do in the first ten minutes

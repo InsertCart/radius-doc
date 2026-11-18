@@ -1,3 +1,8 @@
+---
+title: "Server requirements"
+description: "Check the PHP, database, web server, extension and file permission requirements for installing Radius CMS on your hosting."
+---
+
 # Requirements
 
 Radius runs on ordinary shared hosting. There is no Docker, no Node on the
